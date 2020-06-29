@@ -8,7 +8,6 @@ namespace Task2_2_1_GAME
 {
     abstract class Bonus:Unit
     {
-        
-
+        internal int benefit;
     }
 }

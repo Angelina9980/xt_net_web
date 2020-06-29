@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace Task2_2_1_GAME
 {
-    class SimpleStrawberry:Strawberry
+    class Enemy:Unit
     {
-        protected int benefits = 10;
+       internal int power;
+
+        protected void Move ()
+        {
+            Console.WriteLine("Random move");
+        }
     }
 }

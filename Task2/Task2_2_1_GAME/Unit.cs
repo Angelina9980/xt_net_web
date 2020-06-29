@@ -8,8 +8,6 @@ namespace Task2_2_1_GAME
 {
     abstract class Unit
     {
-        protected double weigth, heigth;
-
-
+        protected double weigth = 1, heigth = 1;
     }
 }

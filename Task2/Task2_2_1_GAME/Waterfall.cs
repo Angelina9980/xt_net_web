@@ -8,6 +8,6 @@ namespace Task2_2_1_GAME
 {
     class Waterfall:GameField
     {
-        protected string weather = "rainy";
+        internal new string weather = "rainy";
     }
 }

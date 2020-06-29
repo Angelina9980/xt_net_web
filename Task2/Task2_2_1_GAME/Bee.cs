@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Task2_2_1_GAME
 {
-    class Bee
+    class Bee:Enemy
     {
-        protected int power = 10, speed = 10;
+        internal string name = "Honeybee";
+        internal new int power = 10;
     }
 }

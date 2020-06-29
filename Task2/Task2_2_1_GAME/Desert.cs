@@ -8,6 +8,6 @@ namespace Task2_2_1_GAME
 {
     class Desert:GameField
     {
-        protected string weather = "sunny";
+        internal new string weather = "sunny";
     }
 }

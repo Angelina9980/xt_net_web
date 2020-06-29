@@ -8,6 +8,13 @@ namespace Task2_2_1_GAME
 {
     class Obstacles:Unit
     {
+        enum Type {
+            wall, 
+            river, 
+            tree,
+            stone
+        }
+
 
     }
 }

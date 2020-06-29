@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Task2_2_1_GAME
 {
-    class Mushroom:Enemies
+    class Mushroom:Enemy
     {
-        protected int power = 15, speed = 0;
+        protected string name = "Amanita";
+        internal  new int power = 15;
     }
 }

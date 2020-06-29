@@ -10,7 +10,7 @@ namespace Task2_2_1_GAME
     {
         static void Main(string[] args)
         {
-
+            Console.WriteLine("Welcome to the game!");
         }
     }
 }

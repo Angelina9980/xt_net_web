@@ -8,14 +8,12 @@ namespace Task2_2_1_GAME
 {
     class Apple:Bonus
     {
-        protected string colour;
+        internal string color;
 
-        protected int benefits = 5;
-        public Apple(string colour)
+        new int benefit = 5;
+        public Apple(string color)
         {
-            this.colour = colour;
+            this.color = color;
         }
-
-
     }
 }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Task2_2_1_GAME
 {
-    class North
+    class North:GameField
     {
-        protected string weather = "snowy";
+        internal new string weather = "frozy";
     }
 }

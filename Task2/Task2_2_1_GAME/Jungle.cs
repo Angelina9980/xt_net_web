@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Task2_2_1_GAME
 {
-    class River:Obstacles
+    class Jungle:GameField
     {
+        internal new string weather = "wet";
     }
 }
