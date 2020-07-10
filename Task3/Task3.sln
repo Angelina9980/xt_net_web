@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task3_1_1_WEAKEST_LINK", "Task3_1_1_WEAKEST_LINK\Task3_1_1_WEAKEST_LINK.csproj", "{A21FE3EE-3DF4-4ABA-AB03-0097BE6D6306}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TASK3_1_2_TEXT_ANALYSIS", "TASK3_1_2_TEXT_ANALYSIS\TASK3_1_2_TEXT_ANALYSIS.csproj", "{0A8D8517-383D-480B-B117-2A63EAC50889}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A21FE3EE-3DF4-4ABA-AB03-0097BE6D6306}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A21FE3EE-3DF4-4ABA-AB03-0097BE6D6306}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A21FE3EE-3DF4-4ABA-AB03-0097BE6D6306}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A8D8517-383D-480B-B117-2A63EAC50889}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A8D8517-383D-480B-B117-2A63EAC50889}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A8D8517-383D-480B-B117-2A63EAC50889}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A8D8517-383D-480B-B117-2A63EAC50889}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
