@@ -16,7 +16,7 @@ namespace TASK3_3_1_SUPER_ARRAY
         public static double[] Modify(this double[] sourceArray, ElementImprover improver)
         {
             if (sourceArray == null || sourceArray.Length == 0)
-                throw new ArgumentException();
+                throw new ArgumentException("Array cannot be null or empty");
 
             double[] newArray = new double[sourceArray.Length];
 
@@ -29,7 +29,7 @@ namespace TASK3_3_1_SUPER_ARRAY
         public static double SearchElements(this double[] sourceArray, ArrayValues value)
         {
             if (sourceArray == null || sourceArray.Length == 0)
-                throw new ArgumentException();
+                throw new ArgumentException("Array cannot be null or empty");
 
             return value(sourceArray);
         }

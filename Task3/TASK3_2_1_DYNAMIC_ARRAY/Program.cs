@@ -52,7 +52,8 @@ namespace TASK3_2_1_DYNAMIC_ARRAY
             }
             Console.WriteLine("Capacity is {0}", sourceArray.Capacity);
             Console.WriteLine("Length is {0}", sourceArray.Length);
-            Console.WriteLine("Value of 3 element is {0}",3, sourceArray[3]);
+            Console.WriteLine("Value of 3 element is {0}",sourceArray[3]);
+            Console.WriteLine("Value of -3 element is {0}", sourceArray[-3]);
             Console.ReadKey();
         }
     }

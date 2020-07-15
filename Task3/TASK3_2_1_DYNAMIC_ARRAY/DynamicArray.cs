@@ -6,37 +6,36 @@ using System.Linq.Expressions;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Xml.Schema;
 
 namespace TASK3_2_1_DYNAMIC_ARRAY
 {
-    class DynamicArray<T> : IEnumerable <T>
+    internal class DynamicArray<T> : IEnumerable<T>, ICloneable
     {
-        private T[] array;
+        internal T[] array;
         public DynamicArray()
         {
             array = new T[8];
             ArrayCount = 0;
         }
-
         public DynamicArray(int arrayCapacity)
         {
             if (arrayCapacity <= 0)
-                throw new ArgumentException("The array capacity must be a positive number");
-            
+                throw new ArgumentException("The capacity of the array must be a positive number");
+
             array = new T[arrayCapacity];
-            ArrayCount = 0; 
+            ArrayCount = 0;
         }
 
-        public DynamicArray(IEnumerable <T> sourceCollection)
+        public DynamicArray(IEnumerable<T> sourceCollection)
         {
             if (sourceCollection == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException("The Collection cannot be null");
 
             int i = 0;
-            foreach(var item in sourceCollection)
+            foreach (var item in sourceCollection)
             {
-                array[i] = item; 
+                array[i] = item;
                 i++;
                 ArrayCount++;
             }
@@ -55,25 +54,44 @@ namespace TASK3_2_1_DYNAMIC_ARRAY
             {
                 return array.Length;
             }
+            set
+            {
+                if (Length <= value || value < 0)
+                    throw new ArgumentOutOfRangeException("An incorrect value for the capacity of the array");
+                else
+                if (array.Length == 0)
+                {
+                    array = new T[value];
+                }
+                else
+                {
+                    T[] newArray = array;
+                    array = new T[value];
+                    newArray.CopyTo(array, 0);
+                }
+
+            }
         }
 
         public T this[int index]
         {
             get
             {
-                if (index > Capacity)
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
+                if (index < -ArrayCount || index > ArrayCount - 1)
+                    throw new ArgumentOutOfRangeException("The index of element is outside the array boundaries");
                 else
-                return array[index];
+                    if (index < 0)
+                    return array[index + ArrayCount];
+                else
+                    return array[index];
             }
             set
             {
-                if (index > Capacity)
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
+                if (index < -ArrayCount || index > ArrayCount - 1)
+                    throw new ArgumentOutOfRangeException("The index of element is outside the array boundaries");
+                else
+                    if (index < 0)
+                    array[index + ArrayCount] = value;
                 else
                     array[index] = value;
             }
@@ -81,14 +99,14 @@ namespace TASK3_2_1_DYNAMIC_ARRAY
 
         public void ExpendTheArray(int newCapacity)
         {
-            T[] newArray = new T [newCapacity];
-            array.CopyTo(newArray,0);
+            T[] newArray = new T[newCapacity];
+            array.CopyTo(newArray, 0);
             array = newArray;
         }
         public void Add(T objectToAdd)
         {
             if (objectToAdd == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException("The object to be added cannot be null");
 
             if (ArrayCount == Capacity)
             {
@@ -102,12 +120,12 @@ namespace TASK3_2_1_DYNAMIC_ARRAY
         public void AddRange(IEnumerable<T> sourceCollection)
         {
             if (sourceCollection == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException("The collection cannot be null");
 
             int collectionSize = sourceCollection.Count();
 
             if (collectionSize + ArrayCount > Capacity)
-               ExpendTheArray(collectionSize + ArrayCount);
+                ExpendTheArray(collectionSize + ArrayCount);
 
             foreach (var item in sourceCollection)
             {
@@ -127,7 +145,7 @@ namespace TASK3_2_1_DYNAMIC_ARRAY
             else {
                 for (var i = indexToDelete; i < Capacity - 1; i++)
                 {
-                    array[i] = array[i+1];
+                    array[i] = array[i + 1];
                 }
                 ArrayCount--;
                 return true;
@@ -139,7 +157,7 @@ namespace TASK3_2_1_DYNAMIC_ARRAY
             if (indexToInsert < 0 || indexToInsert >= ArrayCount)
             {
                 return false;
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException("The index of the inserted element is outside the array boundaries");
             }
             else
             {
@@ -159,7 +177,7 @@ namespace TASK3_2_1_DYNAMIC_ARRAY
             }
         }
 
-        public IEnumerator <T> GetEnumerator ()
+        public virtual IEnumerator<T> GetEnumerator()
         {
             foreach (T arrayObject in array)
             {
@@ -170,6 +188,29 @@ namespace TASK3_2_1_DYNAMIC_ARRAY
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public object Clone()
+        {
+            T[] copyArray = new T[Capacity];
+
+            for (int i=0; i < array.Length; i++)
+            {
+                copyArray[i] = array[i];
+            }
+            return new DynamicArray<T>(copyArray);
+        }
+
+
+        public T[] ToArray()
+        {
+            T[] ordinaryArray = new T[array.Length];
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                ordinaryArray[i] = array[i];
+            }
+            return ordinaryArray;
         }
 
     }
