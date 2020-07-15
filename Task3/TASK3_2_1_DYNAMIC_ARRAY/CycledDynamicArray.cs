@@ -10,15 +10,13 @@ using System.Threading.Tasks;
 
 namespace TASK3_2_1_DYNAMIC_ARRAY
 {
-    class CycledDynamicArray<T>: DynamicArray<T>
+    public class CycledDynamicArray<T>: DynamicArray<T>
     {
-        public override IEnumerator<T> GetEnumerator()
+        /*
+        public override bool MoveNext()
         {
-            foreach (T arrayObject in array)
-            {
-                yield return arrayObject;
-            }
+            
         }
-
+        */
     }
 }

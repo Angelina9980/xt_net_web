@@ -10,7 +10,7 @@ using System.Xml.Schema;
 
 namespace TASK3_2_1_DYNAMIC_ARRAY
 {
-    internal class DynamicArray<T> : IEnumerable<T>, ICloneable
+    public class DynamicArray<T> :IEnumerable, IEnumerable<T>, ICloneable
     {
         internal T[] array;
         public DynamicArray()
@@ -177,7 +177,7 @@ namespace TASK3_2_1_DYNAMIC_ARRAY
             }
         }
 
-        public virtual IEnumerator<T> GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
             foreach (T arrayObject in array)
             {
@@ -185,7 +185,7 @@ namespace TASK3_2_1_DYNAMIC_ARRAY
             }
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
@@ -213,5 +213,43 @@ namespace TASK3_2_1_DYNAMIC_ARRAY
             return ordinaryArray;
         }
 
+        /*
+        public T Current
+        {
+            get
+            {
+                return ;
+            }
+        }
+        object IEnumerator.Current
+        {
+            get
+            {
+                return Current;
+            }
+        }
+        public virtual void Dispose()
+        {
+            GC.SuppressFinalize(this);
+        }
+
+       public virtual bool MoveNext()
+        {
+            if ()
+            {
+                
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public virtual void Reset()
+        {
+            
+        }
+        */
     }
 }

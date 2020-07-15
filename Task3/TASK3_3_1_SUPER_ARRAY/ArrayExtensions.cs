@@ -22,7 +22,7 @@ namespace TASK3_3_1_SUPER_ARRAY
 
             for (int i = 0; i < sourceArray.Length; i++)
             {
-                newArray[i] = improver(sourceArray[i]);
+                newArray[i] = improver.Invoke(sourceArray[i]);
             }
             return newArray;
         }
@@ -31,7 +31,7 @@ namespace TASK3_3_1_SUPER_ARRAY
             if (sourceArray == null || sourceArray.Length == 0)
                 throw new ArgumentException("Array cannot be null or empty");
 
-            return value(sourceArray);
+            return value.Invoke(sourceArray);
         }
         public static double GetSumOfElements(this double[] array)
         {
@@ -45,21 +45,8 @@ namespace TASK3_3_1_SUPER_ARRAY
 
         public static double GetOftRepeatedElement(this double[] array)
         {
-            double mostRepeatedElement = array[0],
-                elementCounter,
-                repetitionsNumber = 0;
-
-            for (int i = 0; i < array.Length; i++)
-            {
-                elementCounter = array.Count(element => element == array.Count());
-
-                if (elementCounter > repetitionsNumber)
-                {
-                    repetitionsNumber = elementCounter;
-                    mostRepeatedElement = array[i];
-                }
-            }
-            return mostRepeatedElement;
+            double mostRepeated = array.GroupBy(item => item).OrderByDescending(g => g.Count()).First().Key;
+            return mostRepeated;
         }
 
     }
