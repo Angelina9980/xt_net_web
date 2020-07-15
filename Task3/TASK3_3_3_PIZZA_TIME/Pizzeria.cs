@@ -34,8 +34,6 @@ namespace TASK3_3_3_PIZZA_TIME
             }
         }
 
-        //3
-        //очередь (по id) (выдача по тому, кто первый добавился)
         public void ReadinessOrder(User customer , PizzaMenu pizza, Pizzeria pizzeria)
         {
                 Console.WriteLine($"The {pizza} is ready!");
