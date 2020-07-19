@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Schema;
 
-namespace TASK3_2_1_DYNAMIC_ARRAY
+namespace MyDynamicArray
 {
-    public class DynamicArray<T> :IEnumerable, IEnumerable<T>, ICloneable, IDisposable, IEnumerator
+    public class DynamicArray<T> : IEnumerable, IEnumerable<T>, ICloneable, IDisposable, IEnumerator
     {
         internal int CurIndex = -1;
 
@@ -144,7 +144,8 @@ namespace TASK3_2_1_DYNAMIC_ARRAY
             if (indexToDelete < 0)
                 return false;
 
-            else {
+            else
+            {
                 for (var i = indexToDelete; i < Capacity - 1; i++)
                 {
                     array[i] = array[i + 1];
@@ -187,7 +188,7 @@ namespace TASK3_2_1_DYNAMIC_ARRAY
             }
         }
 
-         IEnumerator IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
@@ -196,7 +197,7 @@ namespace TASK3_2_1_DYNAMIC_ARRAY
         {
             T[] copyArray = new T[Capacity];
 
-            for (int i=0; i < array.Length; i++)
+            for (int i = 0; i < array.Length; i++)
             {
                 copyArray[i] = array[i];
             }
@@ -214,7 +215,7 @@ namespace TASK3_2_1_DYNAMIC_ARRAY
             }
             return ordinaryArray;
         }
-      
+
         public T Current
         {
             get
@@ -234,7 +235,7 @@ namespace TASK3_2_1_DYNAMIC_ARRAY
             GC.SuppressFinalize(this);
         }
 
-       public virtual bool MoveNext()
+        public virtual bool MoveNext()
         {
             if (CurIndex == array.Length - 1)
             {
@@ -249,6 +250,25 @@ namespace TASK3_2_1_DYNAMIC_ARRAY
         {
             CurIndex = -1;
         }
-        
     }
+
+        public class CycledDynamicArray<T> : DynamicArray<T>
+        {
+            public void Move()
+            {
+                if (CurIndex == array.Length - 1)
+                {
+                    Reset();
+                }
+                CurIndex++;
+            }
+            public override bool MoveNext()
+            {
+                while (true)
+                {
+                    Move();
+                }
+            }
+
+        }
 }
