@@ -2,59 +2,50 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace TASK3_3_3_PIZZA_TIME
 {
     public class User
     {
-        public event ReadinessOfTheOrder IsMake;
+        public string Name { get; }
+        public int UserId { get; }
+        public double userCash { get; private set; }
+        public double orderValue { get; private set; }
 
-        public string Name;
-        public int UserId,
-            userCash;
-
-        public User(string name, int id, int money)
+        public User(string name, int id, double money)
         {
             Name = name;
             UserId = id;
             userCash = money;
+            Pizzeria.IsSsure += IssuingOrder;
         }
-        public bool UserOrder (PizzaMenu pizza, Pizzeria pizzeria)
-        {
-            bool IsPaid = false;
 
-            if (UserId % 3 == 0)
-            {
-               Console.WriteLine($"The user [{UserId}, {Name}] gets a 20% discount!");
-                pizzeria.PizzaCost -=(pizzeria.PizzaCost * 0.2);
-            }
-            if (userCash < pizzeria.PizzaCost)
-            {
-                Console.WriteLine($"Pay attention: the customer's [{UserId}, {Name}] order has not been paid!");
-               IsPaid = false;
-            }
-            else
-            {
-                Console.WriteLine($"The user [{UserId}, {Name}] ordered a {pizza} pizza");
-                IsPaid = true;
-            }
-            return IsPaid;
-        }
-       
-        public void IssuingOrder(PizzaMenu pizza, Pizzeria pizzeria)
+        public void UserOrder(Pizza pizza)
         {
-            if (UserOrder(pizza, pizzeria))
-            {
-                Console.WriteLine($"The user [{UserId}, {Name}] took the {pizza} pizza");
-            }
+            orderValue = pizza.Cost;
+            if (userCash < pizza.Cost)
+                Console.WriteLine($"Sorry, but the customer's [{UserId}, {Name}] order has not been paid!");
             else
             {
-               Console.WriteLine($"The user [{UserId}, {Name}] didnt took the {pizza} pizza :(");
+                //Pizzeria gives a discount to every third customer
+                if (UserId % 3 == 0)
+                {
+                    Console.WriteLine($"The user [{UserId}, {Name}] gets a 20% discount!");
+                    orderValue = pizza.Cost - (pizza.Cost * 0.2);
+                }
+                Console.WriteLine($"The user [{UserId}, {Name}] ordered a {pizza.Name} pizza at the price of {orderValue}");
+                Pizzeria.CookingProcess(this.Name, pizza);
+                userCash -= orderValue;
             }
         }
 
-        
-        
+        public void IssuingOrder(string name)
+        {
+            if (name == this.Name)
+            Console.WriteLine($"The user {name} took the pizza");
+        }
+
     }
 }

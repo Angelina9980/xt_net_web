@@ -1,56 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TASK3_3_3_PIZZA_TIME
 {
-    public class Pizzeria
+    public static class Pizzeria
     {
-        public event ReadinessOfTheOrder IsSsure;
+        public delegate void ReadinessOfTheOrderDelegate(string name);
+        public static event ReadinessOfTheOrderDelegate IsSsure;
 
-        public string Name;
-        public double PizzaCost;
-
-        public Pizzeria(string name, double cost)
+        public static void CookingProcess(string name, Pizza pizza)
         {
-            Name = name;
-            PizzaCost = cost;
+            Console.WriteLine($"The {pizza.Name} started cooking...");
+            ReadinessOrder(name, pizza);
         }
 
-        //2
-        public bool CookingProcess(User customer, PizzaMenu pizza, Pizzeria pizzeria)
+        public static void ReadinessOrder(string name, Pizza pizza)
         {
-            if (customer.UserOrder(pizza, pizzeria))
-            {
-                Console.WriteLine($"The {Name} started prepearing {pizza} pizza");
-                return true;
-            }
-            else
-            {
-                Console.WriteLine($"The {Name} cant be cooks {pizza} .");
-                return false;
-            }
-        }
-
-        public void ReadinessOrder(User customer , PizzaMenu pizza, Pizzeria pizzeria)
-        {
-                Console.WriteLine($"The {pizza} is ready!");
-
-                Console.WriteLine($"The {pizza} is not ready.");
-
+            Console.WriteLine($"Dear {name}, the {pizza.Name} pizza is ready!");
+            IsSsure?.Invoke(name);
         }
     }
 
-    public enum PizzaMenu
-    {
-        Margaret,
-        FourCheeses,
-        FourSeasons,
-        Carbonara,
-        Seafood,
-        Crudo,
-        Vegan
-    }
 }
