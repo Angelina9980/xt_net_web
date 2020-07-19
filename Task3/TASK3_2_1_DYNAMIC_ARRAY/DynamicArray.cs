@@ -10,8 +10,10 @@ using System.Xml.Schema;
 
 namespace TASK3_2_1_DYNAMIC_ARRAY
 {
-    public class DynamicArray<T> :IEnumerable, IEnumerable<T>, ICloneable
+    public class DynamicArray<T> :IEnumerable, IEnumerable<T>, ICloneable, IDisposable, IEnumerator
     {
+        internal int CurIndex = -1;
+
         internal T[] array;
         public DynamicArray()
         {
@@ -212,13 +214,12 @@ namespace TASK3_2_1_DYNAMIC_ARRAY
             }
             return ordinaryArray;
         }
-
-        /*
+      
         public T Current
         {
             get
             {
-                return ;
+                return array[CurIndex];
             }
         }
         object IEnumerator.Current
@@ -235,21 +236,19 @@ namespace TASK3_2_1_DYNAMIC_ARRAY
 
        public virtual bool MoveNext()
         {
-            if ()
+            if (CurIndex == array.Length - 1)
             {
-                
-                return true;
-            }
-            else
-            {
+                Reset();
                 return false;
             }
+            CurIndex++;
+            return true;
         }
 
         public virtual void Reset()
         {
-            
+            CurIndex = -1;
         }
-        */
+        
     }
 }

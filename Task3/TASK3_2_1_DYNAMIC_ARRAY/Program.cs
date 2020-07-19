@@ -54,29 +54,7 @@ namespace TASK3_2_1_DYNAMIC_ARRAY
             Console.WriteLine("Length is {0}", sourceArray.Length);
             Console.WriteLine("Value of 3 element is {0}",sourceArray[3]);
             Console.WriteLine("Value of -3 element is {0}", sourceArray[-3]);
-
-            /*
-            Console.WriteLine("Do you want to run an infinite cycle?");
-            Console.WriteLine("Enter 1 - yes, 2 - no");
-            Console.Write("Your choice is : ");
-            int personChoice = int.Parse(Console.ReadLine());
-            switch (personChoice)
-            {
-                case 1:
-                    CycledDynamicArray<int> CycledAray = new CycledDynamicArray<int>();
-                    foreach (var item in CycledAray)
-                    {
-                        Console.WriteLine(item);
-                    }
-                        break;
-                case 2:
-                    Console.WriteLine("Please enter any key to exit");
-                    break;
-                default:
-                    Console.WriteLine("Please enter any key to exit");
-                    break;
-            }
-            */
+            
             Console.ReadKey();
         }
     }
