@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TASK3_3_2_SUPER_STRING", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TASK3_3_3_PIZZA_TIME", "TASK3_3_3_PIZZA_TIME\TASK3_3_3_PIZZA_TIME.csproj", "{B2717364-A089-48EB-973E-7CDA29872BA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDynamicArray", "DynamicArray\MyDynamicArray.csproj", "{A5C0E8F0-7410-4F7A-9888-BE1BD3197705}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicArrayLib", "DynamicArray\DynamicArrayLib.csproj", "{A5C0E8F0-7410-4F7A-9888-BE1BD3197705}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

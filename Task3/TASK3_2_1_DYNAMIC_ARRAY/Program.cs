@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MyDynamicArray;
+using DynamicArrayLib;
 
 namespace TASK3_2_1_DYNAMIC_ARRAY
 {

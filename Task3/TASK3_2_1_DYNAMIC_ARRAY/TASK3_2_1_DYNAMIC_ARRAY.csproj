@@ -50,9 +50,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DynamicArray\MyDynamicArray.csproj">
+    <ProjectReference Include="..\DynamicArray\DynamicArrayLib.csproj">
       <Project>{a5c0e8f0-7410-4f7a-9888-be1bd3197705}</Project>
-      <Name>MyDynamicArray</Name>
+      <Name>DynamicArrayLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

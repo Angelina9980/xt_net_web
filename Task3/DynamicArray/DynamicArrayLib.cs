@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Schema;
 
-namespace MyDynamicArray
+namespace DynamicArrayLib
 {
     public class DynamicArray<T> : IEnumerable, IEnumerable<T>, ICloneable, IDisposable, IEnumerator
     {
