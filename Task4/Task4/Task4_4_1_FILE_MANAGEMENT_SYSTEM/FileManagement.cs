@@ -120,7 +120,8 @@ namespace Task4_4_1_FILE_MANAGEMENT_SYSTEM
                     Console.Write("Second  : ");
                     int second = int.Parse(Console.ReadLine());
 
-                    RollBack(date, hour, minute, second);
+                    string time = hour.ToString() + "." + minute.ToString() + "." + second.ToString();
+                    RollBack(date, time);
                     Console.WriteLine("Data restored");
                 }
             }
@@ -150,26 +151,21 @@ namespace Task4_4_1_FILE_MANAGEMENT_SYSTEM
             if (e.GetException().GetType() == typeof(InternalBufferOverflowException))
                 Console.WriteLine(("The file system watcher experienced an internal buffer overflow: " + e.GetException().Message));
         }
-        public void RollBack(string date, int hour, int minute, int second)
+        public void RollBack(string date, string time)
         {
-            string time = hour.ToString() + "." + minute.ToString() + "." + second.ToString();
             try
             {
                 var backDir = backeupDirInfo.GetDirectories();
                 for (int i = 0; i < backDir.Length; i++)
                 {
-                    Console.WriteLine("Check1");
                     if (backDir[i].Name.Equals(date))
                     {
-                        Console.WriteLine("Check2");
                         DirectoryInfo filesDate = new DirectoryInfo(backDir[i].FullName);
                         var filesTimeDir = filesDate.GetDirectories();
                         for (int j = 0; j < filesTimeDir.Length; j++)
                         {
-                            Console.WriteLine("Check3");
                             if (filesTimeDir[j].Name.Equals(time))
                             {
-                                Console.WriteLine("Check4");
                                 FileSystem.CopyDirectory(filesTimeDir[i].FullName, dirInfo.FullName, true);
                             }
                         }
