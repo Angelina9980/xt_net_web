@@ -104,16 +104,14 @@ namespace Task4_4_1_FILE_MANAGEMENT_SYSTEM
                 }
                 else
                 {
-                    int hour = 0,
-                        minute = 0,
-                        second = 0;
-
                     Console.Clear();
                     Console.WriteLine("The undo changes mode is enabled!");
                     Console.WriteLine("Please enter the date and time to roll back the filles according to the format : '{0}'", DateTime.Now.Date);
                     Console.Write("The date to roll back is : ");
                     string date = Console.ReadLine();
-
+                    int hour = 0,
+                        minute = 0,
+                        second = 0;
                     Console.WriteLine("The time to roll back is : ");
                     try
                     {
@@ -140,7 +138,7 @@ namespace Task4_4_1_FILE_MANAGEMENT_SYSTEM
             try
             {
                 filesSet.Create();
-                FileSystem.CopyDirectory(dirInfo.FullName, filesSet + "\\");
+                FileSystem.CopyDirectory(dirInfo.FullName, filesSet + "\\", true);
             }
             catch (Exception e)
             {
@@ -164,7 +162,6 @@ namespace Task4_4_1_FILE_MANAGEMENT_SYSTEM
                 {
                     if (backDir[i].Name.Equals(date))
                     {
-
                         DirectoryInfo filesDate = new DirectoryInfo(backDir[i].FullName);
                         var filesTimeDir = filesDate.GetDirectories();
 
@@ -172,17 +169,9 @@ namespace Task4_4_1_FILE_MANAGEMENT_SYSTEM
                         {
                             if (filesTimeDir[j].Name.Equals(time))
                             {
-                                FileSystem.CopyDirectory(filesTimeDir[i].FullName, dirInfo.FullName, true);
-                            }
-                            else
-                            {
-                                Console.WriteLine("No changes at this time");
+                                FileSystem.CopyDirectory(filesTimeDir[j].FullName, dirInfo.FullName, true);
                             }
                         }
-                    }
-                    else
-                    {
-                        Console.WriteLine("No changes in this date");
                     }
                 }
             }
@@ -193,7 +182,7 @@ namespace Task4_4_1_FILE_MANAGEMENT_SYSTEM
         }
         public void Dispose()
         {
-            Console.WriteLine("Press any key to exit the programm");
+            Console.WriteLine("Press any key to exit the program");
         }
     }
 }
