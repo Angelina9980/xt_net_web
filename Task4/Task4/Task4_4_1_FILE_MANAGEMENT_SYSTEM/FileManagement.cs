@@ -16,11 +16,10 @@ namespace Task4_4_1_FILE_MANAGEMENT_SYSTEM
 {
     public class FileManagement : IDisposable
     {
-        private readonly string directoryPath;
-        private string backupdirectoryPath = @"C:\BackupFolder";
-        private readonly DirectoryInfo dirInfo,
+        public string directoryPath;
+        public string backupdirectoryPath = @"C:\BackupFolder";
+        public DirectoryInfo dirInfo,
             backeupDirInfo;
-        private readonly DateTime formatProvider;
 
         public FileManagement(string possibleDirectoryPath)
         {
@@ -44,9 +43,6 @@ namespace Task4_4_1_FILE_MANAGEMENT_SYSTEM
                     Console.WriteLine(e.Message);
                 }
             }
-            DateTime _;
-            DateTime.TryParse(DateTime.Now.ToString(CultureInfo.CurrentCulture), out _);
-            formatProvider = _;
 
             FileActions();
         }
@@ -64,14 +60,14 @@ namespace Task4_4_1_FILE_MANAGEMENT_SYSTEM
             {
                 Console.Clear();
                 Console.WriteLine("The tracking mode is enabled!");
+
                 using (FileSystemWatcher watcher = new FileSystemWatcher(dirInfo.FullName))
                 {
                     watcher.IncludeSubdirectories = true;
                     watcher.Path = directoryPath;
 
-                    watcher.NotifyFilter = NotifyFilters.LastWrite
-                    | NotifyFilters.FileName | NotifyFilters.DirectoryName
-                    | NotifyFilters.Size | NotifyFilters.Attributes;
+                    watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName
+                    | NotifyFilters.Size | NotifyFilters.Attributes | NotifyFilters.CreationTime;
 
                     //tracking only txt files
                     watcher.Filter = "*.txt";
@@ -86,7 +82,7 @@ namespace Task4_4_1_FILE_MANAGEMENT_SYSTEM
 
                     try
                     {
-                        backeupDirInfo.CreateSubdirectory(formatProvider.Day + "." + formatProvider.Month + "." + formatProvider.Year);
+                        backeupDirInfo.CreateSubdirectory(DateTime.Now.Day + "." + DateTime.Now.Month + "." + DateTime.Now.Year);
                     }
                     catch (Exception e)
                     {
@@ -108,42 +104,49 @@ namespace Task4_4_1_FILE_MANAGEMENT_SYSTEM
                 }
                 else
                 {
+                    int hour = 0,
+                        minute = 0,
+                        second = 0;
+
+                    Console.Clear();
                     Console.WriteLine("The undo changes mode is enabled!");
-                    Console.WriteLine("Please enter the date and time to roll back the filles according to the format : '{0}'", formatProvider);
+                    Console.WriteLine("Please enter the date and time to roll back the filles according to the format : '{0}'", DateTime.Now.Date);
                     Console.Write("The date to roll back is : ");
                     string date = Console.ReadLine();
-                    Console.WriteLine("The time to roll back is : ");
-                    Console.Write("Hour  : ");
-                    int hour = int.Parse(Console.ReadLine());
-                    Console.Write("Minute  : ");
-                    int minute = int.Parse(Console.ReadLine());
-                    Console.Write("Second  : ");
-                    int second = int.Parse(Console.ReadLine());
 
+                    Console.WriteLine("The time to roll back is : ");
+                    try
+                    {
+                        Console.Write("Hour  : ");
+                        hour = int.Parse(Console.ReadLine());
+                        Console.Write("Minute  : ");
+                        minute = int.Parse(Console.ReadLine());
+                        Console.Write("Second  : ");
+                        second = int.Parse(Console.ReadLine());
+                    }
+                    catch (FormatException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
                     string time = hour.ToString() + "." + minute.ToString() + "." + second.ToString();
                     RollBack(date, time);
-                    Console.WriteLine("Data restored");
                 }
             }
         }
         private void OnChanged(object source, FileSystemEventArgs fileArgs)
         {
-            DirectoryInfo filesSet = new DirectoryInfo(backeupDirInfo + "\\" + formatProvider.Day + "." + formatProvider.Month + "." + formatProvider.Year + "\\" + formatProvider.Hour + "." + formatProvider.Minute + "." + formatProvider.Second);
+            DirectoryInfo filesSet = new DirectoryInfo(backeupDirInfo + "\\" + DateTime.Now.Day + "." + DateTime.Now.Month + "." + DateTime.Now.Year +
+                "\\" + DateTime.Now.Hour + "." + DateTime.Now.Minute + "." + DateTime.Now.Second);
             try
             {
                 filesSet.Create();
+                FileSystem.CopyDirectory(dirInfo.FullName, filesSet + "\\");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
 
-            var trackingFiles = dirInfo.GetFiles();
-
-            for (int i = 0; i < trackingFiles.Length; i++)
-            {
-                trackingFiles[i].CopyTo(filesSet.FullName + "\\" + trackingFiles[i].Name, true);
-            }
             Console.WriteLine($"File : {fileArgs.FullPath} {fileArgs.ChangeType}");
         }
         private static void OnOverflow(object source, ErrorEventArgs e)
@@ -156,19 +159,30 @@ namespace Task4_4_1_FILE_MANAGEMENT_SYSTEM
             try
             {
                 var backDir = backeupDirInfo.GetDirectories();
+
                 for (int i = 0; i < backDir.Length; i++)
                 {
                     if (backDir[i].Name.Equals(date))
                     {
+
                         DirectoryInfo filesDate = new DirectoryInfo(backDir[i].FullName);
                         var filesTimeDir = filesDate.GetDirectories();
+
                         for (int j = 0; j < filesTimeDir.Length; j++)
                         {
                             if (filesTimeDir[j].Name.Equals(time))
                             {
                                 FileSystem.CopyDirectory(filesTimeDir[i].FullName, dirInfo.FullName, true);
                             }
+                            else
+                            {
+                                Console.WriteLine("No changes at this time");
+                            }
                         }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No changes in this date");
                     }
                 }
             }
