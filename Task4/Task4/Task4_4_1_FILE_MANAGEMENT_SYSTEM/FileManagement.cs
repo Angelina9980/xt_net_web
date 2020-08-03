@@ -164,7 +164,6 @@ namespace Task4_4_1_FILE_MANAGEMENT_SYSTEM
                     {
                         DirectoryInfo filesDate = new DirectoryInfo(backDir[i].FullName);
                         var filesTimeDir = filesDate.GetDirectories();
-
                         for (int j = 0; j < filesTimeDir.Length; j++)
                         {
                             if (filesTimeDir[j].Name.Equals(time))
