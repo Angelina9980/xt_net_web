@@ -10,6 +10,7 @@ namespace Task4_4_1_FILE_MANAGEMENT_SYSTEM
     class Program
     {
         private static string directoryPath;
+
         static void Main()
         {
             try

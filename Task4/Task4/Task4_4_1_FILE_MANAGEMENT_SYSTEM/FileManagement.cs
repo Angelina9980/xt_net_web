@@ -169,6 +169,7 @@ namespace Task4_4_1_FILE_MANAGEMENT_SYSTEM
                         {
                             if (filesTimeDir[j].Name.Equals(time))
                             {
+                                Directory.Delete(dirInfo.FullName,true);
                                 FileSystem.CopyDirectory(filesTimeDir[j].FullName, dirInfo.FullName, true);
                             }
                         }
