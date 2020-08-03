@@ -138,7 +138,7 @@ namespace Task4_4_1_FILE_MANAGEMENT_SYSTEM
             try
             {
                 filesSet.Create();
-                FileSystem.CopyDirectory(dirInfo.FullName, filesSet + "\\", true);
+                FileSystem.CopyDirectory(dirInfo.FullName, filesSet + "\\");
             }
             catch (Exception e)
             {
