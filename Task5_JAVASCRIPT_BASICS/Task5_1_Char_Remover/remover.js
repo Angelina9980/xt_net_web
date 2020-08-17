@@ -1,30 +1,32 @@
 
 function showRemoving(text) {
-let words = text.split(' '),
-repeatLetters = "",
-result = "";
-
-if (words.length < 2 || typeof(text) != "string") {
-console.log(`Wrong or empty string: ${text}`);
-}
-else {
-words.forEach(word => {
-    let letters = word.split('');
-    letters.forEach(letter => {
-        let repeat = 0;
-        letters.forEach(nextLetter =>{
-            if (letter == nextLetter){
-                repeat++;
-            }
-            if (repeat > 1){
-                repeatLetters+=letter;
-            }
+    if (typeof(text) != 'string') {
+        return `The entered data is not a string : ${text}`;
+    }
+    let words = text.split(' '),
+    repeatLetters = "",
+    result = "";
+    
+    if (words.length < 2) {
+        return `Wrong string: ${text}`;
+    }
+    words.forEach(word => {
+        let letters = word.split('');
+        letters.forEach(letter => {
+            let repeat = 0;
+            letters.forEach(nextLetter =>{
+                if (letter == nextLetter){
+                    repeat++;
+                }
+                if (repeat > 1){
+                    repeatLetters+=letter;
+                }
+            });
         });
     });
-});
 
 if (repeatLetters == "") {
-console.log(`The string remains unchanged: ${text}`);
+return `The string remains unchanged: ${text}`;
 }
 else {
 text.split('').forEach(elem => {
@@ -33,10 +35,10 @@ text.split('').forEach(elem => {
     }
 });
 }
-console.log(result);
+return result;
 }
-}
-showRemoving("");
-showRemoving("У попа была собака");
-showRemoving("5567");
-showRemoving("Буря мглою небо кроет");
+console.log(showRemoving(""));
+console.log(showRemoving("У попа была собака"));
+console.log(showRemoving("5567"));
+console.log(showRemoving("Буря мглою небо кроет"));
+console.log(showRemoving(5));
