@@ -99,7 +99,8 @@ storage.add(testObject);
 storage.add(testObject2);
 console.log(storage.getById("0"));
 console.log(storage.getAll());
-console.log(storage.updateById("0",testObject3));
+console.log(storage.updateById("0",testObject2));
 console.log(storage.replaceById("1",testObject3));
-console.log(storage.deleteById("1"));
 console.log(storage.getAll());
+console.log(storage.deleteById("1"));
+
