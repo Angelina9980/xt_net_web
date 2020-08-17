@@ -12,7 +12,7 @@ class Service {
             this.count++;
         }
         else {
-            return "This element is not Object";
+            console.log("This element is not Object");
         }
     }
 
@@ -97,8 +97,9 @@ let storage = new Service();
 
 storage.add(testObject);
 storage.add(testObject2);
-console.log(storage.getById());
+console.log(storage.getById("0"));
 console.log(storage.getAll());
 console.log(storage.updateById("0",testObject3));
 console.log(storage.replaceById("1",testObject3));
+console.log(storage.deleteById("1"));
 console.log(storage.getAll());
