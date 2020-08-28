@@ -1,0 +1,15 @@
+.menu{
+    margin:auto;
+    list-style: none;
+    padding:5px 2px;
+    width: 200px;
+    font:14px Times bold;
+    color:#880000;
+    border:1px solid black;
+    border-radius:10px;
+    background:#F9E497;
+    box-shadow:5px 5px 0px 0px;
+}
+.menu li{
+    padding: 2px 5px;
+}
