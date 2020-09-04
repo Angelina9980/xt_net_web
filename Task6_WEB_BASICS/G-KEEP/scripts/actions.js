@@ -18,13 +18,11 @@ let createButton = document.getElementById('create-button');
 let closeButton = document.getElementsByClassName('close-button')[0];
 let newNoteButton = document.getElementById('create-note');
 let changeNoteButton = document.getElementById('save-note');
+let resetButton = document.getElementById('reset-button');
 
 let wrapper = document.getElementById('wrapper');
 let modal = document.getElementById('create-modal');
 let changeModal = document.getElementById('change-modal');
-
-//localStorage.clear();
-
 
 createButton.onclick = function () {
     modal.style.display = 'block';
@@ -40,6 +38,13 @@ newNoteButton.onclick = function() {
     createNote();
     modal.style.display = 'none';
     wrapper.style.opacity = 1;
+}
+
+resetButton.onclick = function() {
+    if (confirm("Вы действительно хотите очистить заметки?")) {
+        localStorage.clear();
+        window.location.reload();
+    }
 }
 
 function createNote() {
