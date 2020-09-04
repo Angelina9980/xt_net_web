@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>My notes</title>
+        <link rel="stylesheet" type="text/css" href="style.css"/>  
+    </head>
+    <body>
+        <div id="wrapper">
+        <hr>
+          <div id="search-button">
+            <input type="text" placeholder="Поиск">
+            <button type="submit"></button>
+          </div>
+          <hr id="bodyInFrontOfNote">
+           <button id="create-button">+</button>
+        </div>
+          <div id="create-modal" class="modal">
+             <input type="text" placeholder="Введите заголовок" id="modal-title">
+             <textarea name="text" placeholder="Текст заметки" id = "modal-content"></textarea>
+                <button id="create-note">Создать</button>
+                <button class="close-button">Закрыть</button>
+          </div>      
+          <div id="change-modal" class="modal">
+            <input type="text" placeholder="Введите заголовок" id="change-title">
+            <textarea name="text" placeholder="Текст заметки" id = "change-content"></textarea>
+               <button id="save-note">Сохранить</button>
+               <button class="close-button">Закрыть</button>
+         </div>      
+            <script src = "./scripts/actions.js"></script>
+    </body>
+</html>
