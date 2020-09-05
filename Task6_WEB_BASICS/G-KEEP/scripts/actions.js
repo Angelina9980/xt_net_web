@@ -132,3 +132,26 @@ function addToStorage(id, noteTitle, noteText) {
     }
     localStorage.setItem(id, JSON.stringify(elem));
 }
+
+let searchNotePlace = document.getElementById('search-button');
+let searchNoteButton = searchNotePlace.querySelector('button');
+
+
+searchNoteButton.onclick = function() {
+    let searchNote = searchNotePlace.querySelector('input').value;
+    let notesHTML = document.getElementsByClassName('noteBody');
+    
+    if (searchNote.length != 0) {
+        for (let i = 0; i < localStorage.length; i++) {
+            let list = localStorage.getItem(i);
+            if(list.toLowerCase().indexOf(searchNote.toLowerCase()) == -1) {
+                for (let k = 0; k < notesHTML.length; k++) {
+                    if(notesHTML.item(k).getAttribute('id') == i) {
+                        let hiddenNote = document.getElementsByClassName('noteBody')[i];
+                        hiddenNote.style.display = 'none';
+                    }
+                }
+            } 
+        }
+    }
+}
