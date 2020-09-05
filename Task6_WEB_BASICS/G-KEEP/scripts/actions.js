@@ -147,7 +147,7 @@ searchNoteButton.onclick = function() {
             if(list.toLowerCase().indexOf(searchNote.toLowerCase()) == -1) {
                 for (let k = 0; k < notesHTML.length; k++) {
                     if(notesHTML.item(k).getAttribute('id') == i) {
-                        let hiddenNote = document.getElementsByClassName('noteBody')[i];
+                        let hiddenNote = document.getElementsByClassName('noteBody')[k];
                         hiddenNote.style.display = 'none';
                     }
                 }
