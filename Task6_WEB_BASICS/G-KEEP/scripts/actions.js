@@ -6,7 +6,7 @@ if (localStorage.length != 0) {
     for (let i = 0; i < localStorage.length; i++) {
         let list = localStorage.getItem(i);
         let noteData = JSON.parse(list);
-        ShowNote(i, noteData.title, noteData.text, noteData.deleted);
+        showNote(i, noteData.title, noteData.text, noteData.deleted);
     }
 }
 else {
@@ -46,7 +46,7 @@ createButton.onclick = function () {
 
         if ((noteTitle.length || noteText.length != 0)) {
             addToStorage(id, noteTitle, noteText);
-            ShowNote(id, noteTitle, noteText);
+            showNote(id, noteTitle, noteText);
             id++;
         }
     }
@@ -60,7 +60,7 @@ resetButton.onclick = function () {
     }
 }
 
-function ShowNote(id, title, text, deleted) {
+function showNote(id, title, text, deleted) {
     if (!deleted) {
         bodyInFrontOfNotes = document.getElementById('bodyInFrontOfNote');
         bodyInFrontOfNotes.insertAdjacentHTML("afterend", `<div class = "noteBody" id = ${id}>
@@ -96,13 +96,11 @@ function ShowNote(id, title, text, deleted) {
                 changeNote.onclick = function () {
                     let newTitle = changeModal.querySelector('input').value;
                     let newText = changeModal.querySelector('textarea').value;
-                    console.log(title, newTitle, text, newText);
-                    console.log(title != newTitle || text != newText);
                     if (title != newTitle || text != newText) {
                         note.style.display = 'none';
                         deleteNote(note);
                         addToStorage(id, newTitle, newText);
-                        ShowNote(id, newTitle, newText);
+                        showNote(id, newTitle, newText);
                         id++;
                     }
                     changeModal.style.display = 'none';
@@ -125,7 +123,6 @@ function deleteNote(note) {
     JSONdeletedNote.deleted = true;
     localStorage.setItem(note.id, JSON.stringify(JSONdeletedNote));
 }
-
 
 function addToStorage(id, noteTitle, noteText) {
     const elem = {
