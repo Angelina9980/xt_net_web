@@ -1,0 +1,42 @@
+﻿@using Controllers;
+@using Epam.Common;
+@using Epam.Nodes.Entities;
+@using Models;
+
+@{
+    int id = 0;
+    if (IsPost)
+    {
+        var userLogic = UserResolver.UserLogic;
+        UserController userController = new UserController(userLogic);
+
+        id = int.Parse(Request["user-search-place"]);
+        if (userController.GetUserById(id) != null)
+        {
+            Response.Redirect("~/Pages/openUser?userId=" + id.ToString());
+        }
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="~/Views/SearchUserStyle.css" />
+    <title>Поиск пользователя</title>
+</head>
+<body>
+    <form method="post" action="#">
+        <div id="search-body">
+            <div class="search-content">
+                <input type="text" placeholder="Поиск пользователя по Id" name="user-search-place" value="" id="searcher" />
+                <div class="search-btn">
+                    <button type="submit" id="search-but">Search</button>
+                    <button type="button" id="award-close-button" onclick="window.location.href = '../index.cshtml'">Домой</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

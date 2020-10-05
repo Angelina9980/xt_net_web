@@ -1,0 +1,38 @@
+﻿@using Controllers;
+@using Epam.Common;
+@using Models;
+
+@{
+    var awardLogic = AwardResolver.AwardLogic;
+    AwardController awardController = new AwardController(awardLogic);
+    string Id = Request.QueryString["awardID"];
+
+    if (IsPost)
+    {
+        string newTitle = Request.Params["title"];
+        awardController.EditAward(new AwardModel { Id = int.Parse(Id), Title = newTitle});
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="~/Views/openStyle.css" />
+    <title>Изменение награды</title>
+</head>
+<body>
+    <form method="post" action="#">
+        <div id="search-body">
+            <div class="search-content">
+                <p><input type="text" name="title" value="" placeholder="Введите новое название награды"></p>
+                <div class="search-btn">
+                    <p><input type="submit" value="Сохранить" id="save"></p>
+                    <p><input type="button" value="Отмена" id="close" onclick="window.location.href = '../index.cshtml'"></p>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

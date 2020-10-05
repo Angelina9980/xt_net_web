@@ -41,8 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IAccountLogic.cs" />
     <Compile Include="Abstract\IAwardLogic.cs" />
     <Compile Include="Abstract\IUserLogic.cs" />
+    <Compile Include="AccountLogic.cs" />
     <Compile Include="AwardLogic.cs" />
     <Compile Include="UserLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

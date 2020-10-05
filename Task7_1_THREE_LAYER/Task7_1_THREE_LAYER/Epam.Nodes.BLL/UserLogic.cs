@@ -29,9 +29,19 @@ namespace Epam.Nodes.BLL
             _usersRepository.DeleteUserById(id);
         }
 
+        public void EditUser(User user)
+        {
+            _usersRepository.EditUser(user.ToEntity());
+        }
+
         public List<UserEntity> GetAllUsers()
         {
             return _usersRepository.GetAllUsers();
+        }
+
+        public UserEntity GetUserById(int id)
+        {
+            return _usersRepository.GetUserById(id);
         }
     }
 }

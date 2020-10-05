@@ -1,0 +1,49 @@
+﻿@using Controllers;
+@using Epam.Common;
+@using Models;
+
+@{
+    var userLogic = UserResolver.UserLogic;
+    UserController userController = new UserController(userLogic);
+    string Id = Request.QueryString["userID"];
+
+    if (IsPost)
+    {
+        var name = Request.Params["name"];
+        var date = Request.Params["date"];
+        DateTime userDate = new DateTime();
+
+        DateTime.TryParseExact(date, "dd.MM.yyyy", null, System.Globalization.DateTimeStyles.None, out userDate);
+
+        var awards = Request.Params["awards"];
+        char[] marks = { ' ', ',' };
+        var awardsList = awards.Split(marks, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
+
+        userController.EditUser(new UserModel { Id = int.Parse(Id), Name = name, DateOfBirth = userDate, ListOfAwards = awardsList });
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="~/Views/editUserStyle.css" />
+    <title>Изменения пользователя</title>
+</head>
+<body>
+    <form method="post" action="#">
+        <div id="search-body">
+            <div class="search-content">
+                <p><input type="text" name="name" value="" placeholder="Новое имя пользователя"></p>
+                <p><input type="text" name="date" value="" placeholder="Новая дата рождения"></p>
+                <p><input type="text" name="awards" value="" placeholder="Введите список наград"></p>
+                <div class="search-btn">
+                    <p><input type="submit" value="Сохранить" id="save"></p>
+                    <p><input type="button" value="Отмена" id="close" onclick="window.location.href = '../index.cshtml'"></p>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

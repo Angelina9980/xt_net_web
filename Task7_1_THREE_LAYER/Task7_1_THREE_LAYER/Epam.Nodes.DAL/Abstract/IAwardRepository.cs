@@ -9,5 +9,7 @@ namespace Epam.Nodes.DAL.Abstract
         void AddAward(AwardEntity award);
         void DeleteAwardById(int id);
         List<AwardEntity> GetAllAwards();
+        AwardEntity GetAwardById(int id);
+        void EditAward(AwardEntity award);
     }
 }

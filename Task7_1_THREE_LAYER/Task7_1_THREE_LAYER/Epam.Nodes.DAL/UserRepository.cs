@@ -12,7 +12,7 @@ namespace Epam.Nodes.DAL
     {
         private readonly string directoryPath = @"C:\UsersStorage";
         private readonly string fileType = ".json";
-        int userId = 0;
+        int userId = 1;
 
         public void AddUser(UserEntity user)
         {
@@ -26,10 +26,15 @@ namespace Epam.Nodes.DAL
             {
                 directory.Create();
             }
+            
+            if (userId == 0)
+            {
+                userId = 1;
+            }
 
-            userId++;
             user.Id = userId;
-            string userFileName = directoryPath + "\\" + userId + fileType;
+            userId++;
+            string userFileName = directoryPath + "\\" + user.Id + fileType;
             using (StreamWriter writer = new StreamWriter(userFileName, true))
             {
                 writer.Write(JsonConvert.SerializeObject(user));
@@ -42,7 +47,17 @@ namespace Epam.Nodes.DAL
             if (File.Exists(userFileName))
             {
                 File.Delete(userFileName);
+            }
+        }
+
+        public void EditUser(UserEntity user)
+        {
+            var currentUser = GetUserById(user.Id);
+            if (currentUser.Name != user.Name || currentUser.ListOfAwards != user.ListOfAwards || currentUser.DateOfBirth != user.DateOfBirth)
+            {
+                DeleteUserById(currentUser.Id);
                 userId--;
+                AddUser(new UserEntity {Name = user.Name, ListOfAwards = user.ListOfAwards, DateOfBirth = user.DateOfBirth, Id = user.Id});
             }
         }
 
@@ -61,6 +76,19 @@ namespace Epam.Nodes.DAL
                 }
             }
             return userEntities;
+        }
+
+        public UserEntity GetUserById(int id)
+        {
+            var user = GetAllUsers().FirstOrDefault(elem => elem.Id == id);
+            if (user != default(UserEntity))
+            {
+                return user;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

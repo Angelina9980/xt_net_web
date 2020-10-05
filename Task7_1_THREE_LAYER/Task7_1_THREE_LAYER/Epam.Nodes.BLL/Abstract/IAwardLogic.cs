@@ -10,5 +10,7 @@ namespace Epam.Nodes.BLL.Abstract
         void AddAward(Award award);
         void DeleteAwardById(int id);
         List<AwardEntity> GetAllAwards();
+        AwardEntity GetAwardById(int id);
+        void EditAward(Award award);
     }
 }

@@ -1,0 +1,59 @@
+﻿@using Controllers;
+@using Epam.User.Common;
+@using Models;
+
+@{
+    var accountLogic = AccountResolver.accountLogic;
+    AccountController accountController = new AccountController(accountLogic);
+
+    if (IsPost)
+    {
+        var userName = Request.Params["userName"];
+        var password = Request.Params["userPassword"];
+        var repPassword = Request.Params["repPassword"];
+
+        string accountPath = @"C:\AccountStorage";
+        DirectoryInfo directory = new DirectoryInfo(accountPath);
+        var accounts = directory.GetFiles();
+
+        if (password.CompareTo(repPassword) == 0)
+        {
+            if (accounts.FirstOrDefault(elem => elem.Name.Contains(userName)) != default(FileInfo))
+            {
+                Response.Write("Пользователь с данным именем уже существует");
+            }
+            else
+            {
+                accountController.Registration(new AccountModel { Name = userName, Password = password, Role = "user" });
+                FormsAuthentication.SetAuthCookie(userName, createPersistentCookie: true);
+                Response.Redirect("../index.cshtml");
+                return;
+            }
+        }
+        else
+        {
+            Response.Write("Пароли не совпадают.");
+        }
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Регистрация нового пользователя</title>
+    <link rel="stylesheet" type="text/css" href="~/Views/LoginStyle.css" />
+</head>
+<body>
+    <form method="post">
+        <div class="reg-form">Регистрация</div>
+        <p><label>E-mail<br><input type="email" class="mail-form" name="userName" value=""></label></p>
+        <p><label>Пароль<br><input type="password" class="pass-form" name="userPassword" value=""></label>
+            <label>Еще раз<br><input type="password" class="pass-form" name="repPassword"></label>
+        </p>
+        <p><input type="submit" value="Зарегистрироваться" id="reg-btn">
+        <input type="button" value="Закрыть" id="user-close-button" onclick="window.location.href = '../index.cshtml'"></p>
+    </form>
+</body>
+</html>

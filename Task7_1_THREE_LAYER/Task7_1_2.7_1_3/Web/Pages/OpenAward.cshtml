@@ -1,0 +1,52 @@
+﻿@using Controllers;
+@using Epam.Common;
+@using Models;
+
+@{
+    var awardLogic = AwardResolver.AwardLogic;
+    AwardController awardController = new AwardController(awardLogic);
+    string Id = Request.QueryString["awardID"];
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="~/Views/openStyle.css" />
+    <title>Просмотр награды под номером @Id</title>
+</head>
+<body>
+    <form method="post" action="#">
+        <div id="search-body">
+            <div class="search-content">
+                <p><input type="text" name="title" value="@awardController.GetAwardById(int.Parse(Id)).Title" disabled></p>
+                <div class="search-btn">
+                    <p><input type="button" value="Изменить" id="save" onclick="window.location.href = '/Pages/EditAward?awardId=' + '@Id.ToString()'"></p>
+                    <p><input type="submit" value="Удалить" id="delete"></p>
+                    <p><input type="button" value="Закрыть" id="close" onclick="window.location.href = '../index.cshtml'"></p>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script>
+
+        let saveButton = document.getElementById('save'),
+            deleteButton = document.getElementById('delete');
+
+        deleteButton.onclick = function () {
+            if (confirm("Удалить данную награду у всех пользователей?")) {
+                @{if (IsPost) {
+                        awardController.DeleteAwardById(int.Parse(Id));
+                        Response.Redirect("~/Pages/searchAward.cshtml");
+                    }
+                }
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

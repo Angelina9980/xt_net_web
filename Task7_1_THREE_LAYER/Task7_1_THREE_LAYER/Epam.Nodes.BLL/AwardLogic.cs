@@ -25,9 +25,19 @@ namespace Epam.Nodes.BLL
             _awardRepository.DeleteAwardById(id);
         }
 
+        public void EditAward(Award award)
+        {
+            _awardRepository.EditAward(award.ToEntity());
+        }
+
         public List<AwardEntity> GetAllAwards()
         {
             return _awardRepository.GetAllAwards();
+        }
+
+        public AwardEntity GetAwardById(int id)
+        {
+            return _awardRepository.GetAwardById(id);
         }
     }
 }

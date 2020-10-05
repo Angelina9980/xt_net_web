@@ -3,8 +3,6 @@ using Models;
 using System;
 using System.Collections.Generic;
 using Epam.Common;
-using System.Linq;
-using Epam.Nodes.Entities;
 using System.Globalization;
 
 namespace Epam.Nodes
@@ -49,7 +47,6 @@ namespace Epam.Nodes
                             Console.WriteLine("Введите дату формата dd.MM.yyyy");
                             dateInput = Console.ReadLine();
                         }
-
                         List<int> awardList = new List<int>();
                         Console.WriteLine("Добавить пользователю наград? ");
                         Console.Write("1 - да, 2 - нет : ");
@@ -130,7 +127,7 @@ namespace Epam.Nodes
                         {
                             foreach (var award in awardLogic.GetAllAwards())
                             {
-                                Console.WriteLine($"Награда : {award.Title}");
+                                Console.WriteLine($"Награда : {award.Title} id: {award.Id}");
                             }
                         }
                         break;

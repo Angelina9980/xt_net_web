@@ -8,6 +8,7 @@ namespace Models
 {
     public class AwardModel
     {
+        public int Id { get; set; }
         public string Title { get; set; }
     }
 }

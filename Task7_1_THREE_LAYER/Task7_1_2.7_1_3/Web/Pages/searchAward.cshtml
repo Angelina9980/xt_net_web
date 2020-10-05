@@ -1,0 +1,40 @@
+﻿@using Controllers;
+@using Epam.Common;
+@using Epam.Nodes.Entities;
+
+@{
+    int id = 0;
+    if (IsPost)
+    {
+        id = int.Parse(Request["award-search-place"]);
+        var awardLogic = AwardResolver.AwardLogic;
+        AwardController awardController = new AwardController(awardLogic);
+
+        if (awardController.GetAwardById(id) != null) {
+            Response.Redirect("~/Pages/openAward?awardId=" + id.ToString());
+        }
+    }
+
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="~/Views/SearchAwardStyle.css" />
+    <title>Поиск наград</title>
+</head>
+<body>
+    <form method="post" action="#">
+        <div id="search-body">
+            <div class="search-content">
+                <input type="text" placeholder="Поиск награды по Id" name="award-search-place" id="searcher" value="" />
+                <div class="search-btn">
+                    <button type="submit" id="search-award">Search</button>
+                    <button type="button" id="award-close-button" onclick="window.location.href = '../index.cshtml'">Домой</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

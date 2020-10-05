@@ -9,5 +9,7 @@ namespace Epam.Nodes.DAL.Abstract
         void AddUser(UserEntity user);
         void DeleteUserById(int id);
         List<UserEntity> GetAllUsers();
+        UserEntity GetUserById(int id);
+        void EditUser(UserEntity user);
     }
 }

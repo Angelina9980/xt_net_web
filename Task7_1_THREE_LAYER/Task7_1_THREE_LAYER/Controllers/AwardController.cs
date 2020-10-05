@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Mappers;
 using Models;
 using Epam.Nodes.Entities;
+using System.Web.Mvc;
 
 namespace Controllers
 {
@@ -30,6 +31,17 @@ namespace Controllers
         public List<AwardEntity> GetAllAwards()
         {
             return _awardLogic.GetAllAwards();
+        }
+
+        public void EditAward(AwardModel model)
+        {
+            _awardLogic.EditAward(model.ToDomain());
+        }
+
+
+        public AwardEntity GetAwardById(int id)
+        {
+            return _awardLogic.GetAwardById(id);
         }
     }
 }

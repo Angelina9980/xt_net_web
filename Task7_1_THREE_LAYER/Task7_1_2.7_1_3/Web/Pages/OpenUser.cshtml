@@ -1,0 +1,65 @@
+﻿@using Controllers;
+@using Epam.Common;
+@using Models;
+@using Epam.Nodes.Entities;
+@using System.Text;
+
+@{
+    var userLogic = UserResolver.UserLogic;
+    UserController userController = new UserController(userLogic);
+    string Id = Request.QueryString["userID"];
+
+    var userInfo = userController.GetUserById(int.Parse(Id));
+
+    StringBuilder _string = new StringBuilder();
+
+    foreach (var award in userInfo.ListOfAwards)
+    {
+        _string.Append(award);
+        _string.Append(" ");
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+        <link rel="stylesheet" type="text/css" href="~/Views/openUserStyle.css" />
+    <title>Просмотр пользователя под номером @Id</title>
+</head>
+<body>
+    <form method="post" action="#">
+        <div id="search-body">
+            <div class="search-content">
+                <p><input type="text" name="name" value=@userInfo.Name disabled></p>
+                <p><input type="text" name="date" value=@userInfo.DateOfBirth.ToShortDateString() disabled></p>
+                <p><input type="text" name="awards" value="Награды: @_string" disabled></p>
+                <p><input type="text" name="age" value="Возраст пользователя: @userInfo.Age" disabled></p>
+                <div class="search-btn">
+                    <p><input type="button" value="Изменить" id="save" onclick="window.location.href = '/Pages/EditUser?userId=' + '@Id.ToString()'"></p>
+                    <p><input type="submit" value="Удалить" id="delete"></p>
+                    <p><input type="button" value="Закрыть" id="close" onclick="window.location.href = '../index.cshtml'"></p>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script>
+
+        let deleteButton = document.getElementById('delete');
+        
+        deleteButton.onclick = function () {
+            if (confirm("Вы действительно хотите удалить данного пользователя?")) {
+                    @{
+                        if (IsPost) {
+                            userController.DeleteUserById(int.Parse(Id)); 
+                            Response.Redirect("~/Pages/searchUser.cshtml");
+                        }
+
+                }
+                
+            }
+        }
+    </script>
+</body>
+</html>

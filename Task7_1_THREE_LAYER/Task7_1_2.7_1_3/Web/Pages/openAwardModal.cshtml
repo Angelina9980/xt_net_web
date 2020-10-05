@@ -1,0 +1,38 @@
+﻿@using Controllers;
+@using Models;
+@using Epam.Common;
+
+@{
+    if (IsPost)
+    {
+        var awardLogic = AwardResolver.AwardLogic;
+        AwardController awardController = new AwardController(awardLogic);
+
+        string title = Request.Params["title"];
+
+        awardController.AddAward(new AwardModel {Title = title });
+
+    }
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Добавить награду</title>
+    <link rel="stylesheet" type="text/css" href="~/Views/awardModalStyle.css" />
+</head>
+<body>
+    <div>
+        <form action="" method="post">
+            <div id="award-modal">
+                <p><input type="text" name="title" placeholder="Введите название награды" value=""></p>
+                <p><input type="submit" value="Создать" id="create-award"></p>
+                <p><input type="button" value="Закрыть" id="award-close-button" onclick="window.location.href = '../index.cshtml'"></p>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

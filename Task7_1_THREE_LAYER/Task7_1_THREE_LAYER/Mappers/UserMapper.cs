@@ -21,14 +21,21 @@ namespace Mappers
             return new UserEntity
             {
                 Name = user.Name,
-                DateOfBirth = user.DateOfBirth,
+                DateOfBirth = user.DateOfBirth.Date,
                 Age = age,
-                ListOfAwards = user.ListOfAwards
+                ListOfAwards = user.ListOfAwards,
+                Id = user.Id
             };
         }
         public static User ToDomain(this UserModel model)
         {
-            string awardDirectoryPath = @"C:\AdwardStorage";
+            string awardDirectoryPath = @"C:\AwardStorage";
+            DirectoryInfo directory = new DirectoryInfo(awardDirectoryPath);
+
+            if (!directory.Exists)
+            {
+                directory.Create();
+            }
             var awardFiles = new DirectoryInfo(awardDirectoryPath).GetFiles();
 
             var userAwards = model.ListOfAwards;
@@ -37,22 +44,24 @@ namespace Mappers
             {
                 return null;
             }
+            
             if (userAwards != null)
             {
-                for (int i = 0; i < userAwards.Count; i++)
+                foreach (var userAward in model.ListOfAwards.ToList())
                 {
-                    if (!awardFiles.Equals(userAwards[i]))
+                    if (awardFiles.FirstOrDefault(elem => elem.Name.Contains(userAward.ToString())) == default(FileInfo))
                     {
-                        model.ListOfAwards.Remove(userAwards[i]);
+                        model.ListOfAwards.Remove(userAward);
                     }
                 }
             }
-
+            
             return new User
-            {
+            {              
                 Name = model.Name,
                 DateOfBirth = model.DateOfBirth,
-                ListOfAwards = model.ListOfAwards
+                ListOfAwards = model.ListOfAwards,
+                Id = model.Id
             };
         }
     }

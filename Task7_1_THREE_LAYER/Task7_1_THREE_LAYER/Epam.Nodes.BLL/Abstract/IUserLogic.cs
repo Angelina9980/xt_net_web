@@ -10,5 +10,7 @@ namespace Epam.Nodes.BLL.Abstract
         void AddUser(User user);
         void DeleteUserById(int id);
         List<UserEntity> GetAllUsers();
+        UserEntity GetUserById(int id);
+        void EditUser(User user);
     }
 }

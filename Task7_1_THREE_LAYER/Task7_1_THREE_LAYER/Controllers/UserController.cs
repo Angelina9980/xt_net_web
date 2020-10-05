@@ -30,5 +30,14 @@ namespace Controllers
         {
             return _userLogic.GetAllUsers();
         }
+        public void EditUser(UserModel model)
+        {
+            _userLogic.EditUser(model.ToDomain());
+        }
+
+        public UserEntity GetUserById(int id)
+        {
+            return _userLogic.GetUserById(id);
+        }
     }
 }

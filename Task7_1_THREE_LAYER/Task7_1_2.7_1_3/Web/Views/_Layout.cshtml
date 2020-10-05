@@ -1,0 +1,202 @@
+﻿@using Controllers;
+@using Epam.Common;
+@using Epam.Nodes.Entities;
+@using System.Text;
+
+@{
+    var awardLogic = AwardResolver.AwardLogic;
+    var userLogic = UserResolver.UserLogic;
+    AwardController awardController = new AwardController(awardLogic);
+    UserController userController = new UserController(userLogic);
+
+    var awards = awardController.GetAllAwards();
+    var users = userController.GetAllUsers();
+
+    bool IsShowAwards = false,
+        IsShowUsers = false,
+        IsSearchUser = false,
+        IsSearchAward = false,
+        IsGetAward = false,
+        IsGetUser = false;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="~/Views/mainStyle.css" />
+    <title>Users and Awards</title>
+</head>
+<body>
+    <hr>
+    <div id="greeting">
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole("admin"))
+            {
+                <p>Приветствуем, администратор!</p>
+                IsSearchAward = true;
+                IsSearchUser = true;
+                IsShowAwards = true;
+                IsShowUsers = true;
+                IsGetAward = true;
+                IsGetUser = true;
+                <input type="button" value="Log out" id="out-btn" />
+            }
+            else if (User.IsInRole("user"))
+            {
+                <p>Приветствуем, @User.Identity.Name!</p>
+                IsShowAwards = true;
+                IsShowUsers = true;
+                <input type="button" value="Log out" id="out-btn" />
+            }
+        }
+        else
+        {
+            <p>Пожалуйста, пройдите регистрацию, чтобы пользоваться приложением.</p>
+            <input type="button" id="log-btn" value="Login" onclick="window.location.href = 'Pages/Login.cshtml'" />
+        }
+    </div>
+    <hr>
+    <div class="section">
+        <div id="user-section">
+            <p>Пользователи </p>
+            <button id="user-create-button">+</button>
+            <button id="search-user">Search</button>
+
+            <button id="user-all-button">All</button>
+            <div id="all-users">
+                <input type="button" value="-" id="close-users">
+                <div id="usersPlace">
+                    @foreach (UserEntity userEntity in users)
+                    {
+                        StringBuilder _string = new StringBuilder();
+                        foreach (var award in userEntity.ListOfAwards)
+                        {
+                            _string.Append(award);
+                            _string.Append(" ");
+                        }
+                        <div class="userModal">
+                            <input type="text" value="Id: @userEntity.Id" disabled>
+                            <input type="text" value="Имя: @userEntity.Name" disabled>
+                            <input type="text" value="Дата рождения: @userEntity.DateOfBirth.ToShortDateString()" disabled>
+                            <input type="text" value="Возраст: @userEntity.Age" disabled>
+                            <input type="text" value="Номера наград: @_string" disabled>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+        <div id="award-section">
+            <p>Награды</p>
+            <button id="award-create-button">+</button>
+            <button type="button" id="search-award">Search</button>
+            <button id="award-all-button">All</button>
+            <div id="all-awards">
+                <input type="button" value="-" id="close-awards">
+                <div id="awardsPlace">
+                    @foreach (AwardEntity entity in awards)
+                    {
+                        <div class="awardModal">
+                            <input type="text" value="Id: @entity.Id" disabled>
+                            <input type="text" class="awardTitle" value="@entity.Title" disabled />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        let createUserButton = document.getElementById('user-create-button'),
+            showAllUsersButton = document.getElementById('user-all-button'),
+            searchUserButton = document.getElementById('search-user');
+
+        let createAwardButton = document.getElementById('award-create-button'),
+            showAllAwardsButton = document.getElementById('award-all-button'),
+            searchAwardButton = document.getElementById('search-award');
+
+        let logOutBtn = document.getElementById('out-btn');
+
+        showAllUsersButton.onclick = function () {
+            if ('@IsShowUsers' == 'True') {
+                let allUsersPlace = document.getElementById('all-users');
+                allUsersPlace.style.display = 'block';
+
+                let hideUsersButton = document.getElementById('close-users');
+
+                hideUsersButton.onclick = function () {
+                    allUsersPlace.style.display = 'none';
+                }
+            }
+            else if ('@User.Identity.IsAuthenticated' != 'True'){
+                location.href = "Pages/Login.cshtml";
+            }
+        }
+
+        showAllAwardsButton.onclick = function (event) {
+            if ('@IsShowAwards' == 'True') {
+                let allAwardsPlace = document.getElementById('all-awards');
+                    allAwardsPlace.style.display = 'block';
+
+                let hideAwardsButton = document.getElementById('close-awards');
+                    hideAwardsButton.onclick = function () {
+                        allAwardsPlace.style.display = 'none';
+                    }
+                }
+            else if ('@User.Identity.IsAuthenticated' != 'True'){
+                location.href = "Pages/Login.cshtml";
+            }
+        }
+
+
+        createUserButton.onclick = function () {
+            if ('@IsGetUser' == 'True') {
+                location.href = "Pages/openUserModal.cshtml";
+            }
+            else if ('@User.Identity.IsAuthenticated' != 'True'){
+                location.href = "Pages/Login.cshtml";
+            }
+        }
+        createAwardButton.onclick = function () {
+            if ('@IsGetAward' == 'True') {
+                location.href = "Pages/openAwardModal.cshtml";
+            }
+            else if ('@User.Identity.IsAuthenticated' != 'True'){
+                location.href = "Pages/Login.cshtml";
+            }
+        }
+
+        searchUserButton.onclick = function () {
+            if ('@IsSearchUser' == 'True') {
+                location.href = "Pages/searchUser.cshtml";
+            }
+            else if ('@User.Identity.IsAuthenticated' != 'True'){
+                location.href = "Pages/Login.cshtml";
+            }
+        }
+
+        searchAwardButton.onclick = function () {
+            if ('@IsSearchAward' == 'True') {
+                location.href = "Pages/searchAward.cshtml";
+            }
+            else if ('@User.Identity.IsAuthenticated' != 'True'){
+                location.href = "Pages/Login.cshtml";
+            }
+        }
+
+        logOutBtn.onclick = function () {
+            @{
+                FormsAuthentication.SignOut();
+             }
+            location.href = window.location.href = '../index.cshtml';
+        }
+
+    </script>
+
+    @RenderBody()
+</body>
+</html>

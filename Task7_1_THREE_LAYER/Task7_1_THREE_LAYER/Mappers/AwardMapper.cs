@@ -1,8 +1,6 @@
 ﻿using Domain;
 using Epam.Nodes.Entities;
 using Models;
-using System;
-using System.Collections.Generic;
 
 namespace Mappers
 {
@@ -12,7 +10,8 @@ namespace Mappers
         {
             return new AwardEntity
             {
-                Title = award.Title
+                Title = award.Title,
+                Id = award.Id
             };
         }
 
@@ -24,6 +23,7 @@ namespace Mappers
             }
             return new Award
             {
+                Id = model.Id,
                 Title = model.Title
             };
         }
