@@ -57,7 +57,7 @@ namespace Epam.Nodes.DAL
             {
                 DeleteUserById(currentUser.Id);
                 userId--;
-                AddUser(new UserEntity {Name = user.Name, ListOfAwards = user.ListOfAwards, DateOfBirth = user.DateOfBirth, Id = user.Id});
+                AddUser(new UserEntity {Name = user.Name, ListOfAwards = user.ListOfAwards, DateOfBirth = user.DateOfBirth, Id = user.Id, Age = user.Age});
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using Domain;
 using Epam.Nodes.BLL.Abstract;
-using Epam.Nodes.DAL.Abstract;
+//using Epam.Nodes.DAL.Abstract;
+using DatabaseDAO.Abstract;
 using Epam.Nodes.Entities;
 using Mappers;
 using System;
@@ -11,8 +12,8 @@ namespace Epam.Nodes.BLL
 {
     public class UserLogic : IUserLogic
     {
-        private readonly IUserRepository _usersRepository;
 
+        private readonly IUserRepository _usersRepository;
 
         public UserLogic(IUserRepository usersRepository)
         {

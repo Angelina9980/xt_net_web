@@ -29,7 +29,7 @@ namespace Mappers
         }
         public static User ToDomain(this UserModel model)
         {
-            string awardDirectoryPath = @"C:\AwardStorage";
+           /* string awardDirectoryPath = @"C:\AwardStorage";
             DirectoryInfo directory = new DirectoryInfo(awardDirectoryPath);
 
             if (!directory.Exists)
@@ -55,7 +55,7 @@ namespace Mappers
                     }
                 }
             }
-            
+            */
             return new User
             {              
                 Name = model.Name,

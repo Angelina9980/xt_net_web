@@ -1,7 +1,10 @@
 ﻿using Epam.Nodes.BLL;
 using Epam.Nodes.BLL.Abstract;
+//using Epam.Nodes.DAL;
+//using Epam.Nodes.DAL.Abstract;
+using DatabaseDAO;
+using DatabaseDAO.Abstract;
 using Epam.Nodes.DAL;
-using Epam.Nodes.DAL.Abstract;
 
 namespace Epam.Common
 {
@@ -14,8 +17,11 @@ namespace Epam.Common
 
         static UserResolver()
         {
-            _userRepository = new UserRepository();
+            // _userRepository = new UserRepository();
+            //_userLogic = new UserLogic(_userRepository);
+            _userRepository = new UserDAO();
             _userLogic = new UserLogic(_userRepository);
+
         }
     }
 }

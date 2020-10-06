@@ -50,6 +50,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DatabaseDAO\DatabaseDAO.csproj">
+      <Project>{fe0c6c34-7254-4f7a-9988-71eef66f1d49}</Project>
+      <Name>DatabaseDAO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{11030807-F0A5-4A8C-AEF3-32909B16964C}</Project>
       <Name>Domain</Name>

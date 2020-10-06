@@ -1,7 +1,9 @@
 ﻿using Epam.Nodes.BLL;
 using Epam.Nodes.BLL.Abstract;
-using Epam.Nodes.DAL;
-using Epam.Nodes.DAL.Abstract;
+//using Epam.Nodes.DAL;
+//using Epam.Nodes.DAL.Abstract;
+using DatabaseDAO;
+using DatabaseDAO.Abstract;
 
 namespace Epam.Common
 {
@@ -13,7 +15,9 @@ namespace Epam.Common
         public static IAwardRepository AwardRepository => _awardRepository;
         static AwardResolver()
         {
-            _awardRepository = new AwardRepository();
+            // _awardRepository = new AwardRepository();
+            //_awardLogic = new AwardLogic(_awardRepository);
+            _awardRepository = new AwardDAO();
             _awardLogic = new AwardLogic(_awardRepository);
         }
     }
