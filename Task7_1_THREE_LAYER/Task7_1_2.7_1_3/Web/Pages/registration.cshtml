@@ -11,24 +11,24 @@
         var userName = Request.Params["userName"];
         var password = Request.Params["userPassword"];
         var repPassword = Request.Params["repPassword"];
-
+        /*
         string accountPath = @"C:\AccountStorage";
         DirectoryInfo directory = new DirectoryInfo(accountPath);
         var accounts = directory.GetFiles();
-
+        */
         if (password.CompareTo(repPassword) == 0)
         {
+            /*
             if (accounts.FirstOrDefault(elem => elem.Name.Contains(userName)) != default(FileInfo))
             {
                 Response.Write("Пользователь с данным именем уже существует");
             }
-            else
-            {
-                accountController.Registration(new AccountModel { Name = userName, Password = password, Role = "user" });
-                FormsAuthentication.SetAuthCookie(userName, createPersistentCookie: true);
-                Response.Redirect("../index.cshtml");
-                return;
-            }
+            */
+
+            accountController.Registration(new AccountModel { Name = userName, Password = password, Role = "user" });
+            FormsAuthentication.SetAuthCookie(userName, createPersistentCookie: true);
+            Response.Redirect("../index.cshtml");
+            return;
         }
         else
         {

@@ -2,7 +2,6 @@
 @using Epam.User.Common;
 @using Models;
 @using Epam.Nodes.Entities;
-@using Newtonsoft.Json;
 
 @{
     var accountLogic = AccountResolver.accountLogic;
@@ -10,66 +9,68 @@
 
     if (IsPost)
     {
+        /*
         string accountPath = @"C:\AccountStorage";
         DirectoryInfo directory = new DirectoryInfo(accountPath);
         var accounts = directory.GetFiles();
+        */
 
         var userName = Request.Params["userName"];
         var password = Request.Params["userPassword"];
         var repPassword = Request["repPassword"];
 
 
-        if (accounts.FirstOrDefault(elem => elem.Name.Contains(userName)) != default(FileInfo))
+        // if (accounts.FirstOrDefault(elem => elem.Name.Contains(userName)) != default(FileInfo))
+        // {
+
+        if ((password.CompareTo(repPassword)) == 0)
         {
-            if ((password.CompareTo(repPassword)) == 0)
-            {
+            /*
                 using (StreamReader reader = new StreamReader(accounts.FirstOrDefault(elem => elem.Name.Contains(userName)).FullName))
                 {
                     if (JsonConvert.DeserializeObject<AccountEntity>(reader.ReadToEnd()).Password.CompareTo(password) == 0)
                     {
-                        FormsAuthentication.SetAuthCookie(userName, createPersistentCookie: true);
-                        Response.Redirect("~");
-                        return;
-                    }
-                    else
-                    {
-                        Response.Write("Неправильно введенный пароль");
-                    }
-                }
+                    */
+            if (accountController.GetRole(userName) != null)
+            {
+                FormsAuthentication.SetAuthCookie(userName, createPersistentCookie: true);
+                Response.Redirect("~");
+                return;
             }
             else
             {
-                Response.Write("Пароли не совпадают.");
+                Response.Write("Аккаунта с такими данными не существует");
             }
         }
         else
         {
-            Response.Write("Пользователя с введенными данными не существует.");
+            Response.Write("Пароли не совпадают.");
         }
+        // }
     }
 }
-        <!DOCTYPE html>
+<!DOCTYPE html>
 
-        <html>
-        <head>
-            <meta name="viewport" content="width=device-width" />
-            <title>Вход/Регистрация</title>
-            <link rel="stylesheet" type="text/css" href="~/Views/LoginStyle.css" />
-        </head>
-        <body>
-            <div>
-                <form method="post">
-                    <div class="reg-form">Вход / Регистрация</div>
-                    <p><label>E-mail<br><input type="email" class="mail-form" name="userName" value=""></label></p>
-                    <p>
-                        <label>Пароль<br><input type="password" class="pass-form" name="userPassword" value=""></label>
-                        <label>Еще раз<br><input type="password" class="pass-form" name="repPassword"></label>
-                    </p>
-                    <p>
-                        <input type="submit" value="Войти">
-                        <input type="button" value="Зарегистрироваться" id="reg-btn" onclick="location.href = 'registration.cshtml'">
-                    </p>
-                </form>
-            </div>
-        </body>
-    </html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Вход/Регистрация</title>
+    <link rel="stylesheet" type="text/css" href="~/Views/LoginStyle.css" />
+</head>
+<body>
+    <div>
+        <form method="post">
+            <div class="reg-form">Вход / Регистрация</div>
+            <p><label>E-mail<br><input type="email" class="mail-form" name="userName" value=""></label></p>
+            <p>
+                <label>Пароль<br><input type="password" class="pass-form" name="userPassword" value=""></label>
+                <label>Еще раз<br><input type="password" class="pass-form" name="repPassword"></label>
+            </p>
+            <p>
+                <input type="submit" value="Войти">
+                <input type="button" value="Зарегистрироваться" id="reg-btn" onclick="location.href = 'registration.cshtml'">
+            </p>
+        </form>
+    </div>
+</body>
+</html>

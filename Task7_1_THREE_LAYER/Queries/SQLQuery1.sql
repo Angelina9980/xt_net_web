@@ -21,3 +21,13 @@ CREATE TABLE dbo.UsersAndAwards (
 ALTER TABLE UsersAndAwards ADD CONSTRAINT FK0_UsersAndAwards FOREIGN KEY (ID_Award) REFERENCES Award(ID_Award);
 
 ALTER TABLE UsersAndAwards ADD CONSTRAINT FK1_UsersAndAwards FOREIGN KEY (ID_Users) REFERENCES Users(ID_Users);
+
+
+CREATE TABLE dbo.Account (
+	ID_Account INT IDENTITY(1,1) NOT NULL CONSTRAINT PK_Account PRIMARY KEY,
+	Name VARCHAR(50) NOT NULL,
+	Role NVARCHAR(MAX) NOT NULL,
+	Password NVARCHAR(MAX) NOT NULL
+);
+
+insert into Account(Name, Role, Password) values('admin@gmail.com', 'admin', 'admin1234')
