@@ -15,7 +15,7 @@ namespace Epam.User.Common
    public class AccountResolver
     {
         private static readonly IAccountLogic _accountLogic;
-        private static readonly AccountDAO _accountDAO;
+        private static readonly IAccountRepository _accountDAO;
         public static IAccountLogic accountLogic => _accountLogic;
         public static IAccountRepository accountRepository => _accountDAO;
         static AccountResolver()
