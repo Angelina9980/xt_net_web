@@ -1,0 +1,67 @@
+﻿@using Controllers;
+@using Resolver;
+@using Entities;
+
+@{
+    if (!User.Identity.IsAuthenticated || (!User.IsInRole("admin")))
+    {
+        Response.Redirect("../index.cshtml");
+    }
+
+    Layout = "~/Pages/_Layout.cshtml";
+
+    var accountLogic = AccountResolver.AccountLogic;
+    AccountController accountController = new AccountController(accountLogic);
+    var accounts = accountController.GetAllAccounts();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="~/Styles/AllAccountStyle.css" />
+</head>
+<body>
+    <div id="AccountsBody">
+        @foreach (var accountInfo in accounts)
+        {
+            <div class="AccountInfo">
+                <div class="section">
+                    <p>
+                        <label>Имя пользователя</label>
+                        <input type="text" name="name" class="input-form" value="@accountInfo.Name" disabled>
+                        <label>Пароль</label>
+                        <input type="password" name="password" class="input-form" value="@accountInfo.Password" disabled>
+                        <label>Почта</label>
+                        <input type="text" name="mail" class="input-form" value="@accountInfo.Email" disabled />
+                    </p>
+                </div>
+                <div class="section">
+                    <p>
+                        <label>Возраст<input type="text" name="age" value="@accountInfo.Age" class="input-form" disabled></label>
+                        <label>Баланс<input type="text" name="balance" class="input-form" value="@accountInfo.Balance" disabled></label>
+                        <label>Роль<input type="text" name="role" class="input-form" value="@accountInfo.Role" disabled /></label>
+                    </p>
+                </div>
+                <div class="section">
+                    <p>
+                        <label>Номер телефона</label>
+                        <input type="text" name="number" class="input-form" value="@accountInfo.Number" disabled />
+                        <label>Номер карты</label>
+                        <input type="text" name="card" class="input-form" value="@accountInfo.CardInformation" disabled>
+                        <label>Дата рождения</label>
+                        <input type="text" class="input-form" value="@accountInfo.DateOfBirth.Date.ToShortDateString()" disabled>
+                    </p>
+                </div>
+                <div class="buttons">
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                    {
+                        <input type="button" value="Редактировать" id="editUserButton" onclick="location.href = '/Pages/openAccount?accountMail=' + '@accountInfo.Email'" />
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</body>
+</html>

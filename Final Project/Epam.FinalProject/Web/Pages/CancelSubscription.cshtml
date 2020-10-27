@@ -1,0 +1,32 @@
+﻿@using Controllers;
+@using Resolver;
+
+@{
+    if (!User.Identity.IsAuthenticated)
+    {
+        Response.Redirect("Login.cshtml");
+    }
+
+    var accountLogic = AccountResolver.AccountLogic;
+    AccountController accountController = new AccountController(accountLogic);
+    var subsccriptionLogic = SubscriptionResolver.SubcriptionLogic;
+    SubscriptionController subscriptionController = new SubscriptionController(subsccriptionLogic);
+
+    var userSubscriptionCheck = subscriptionController.SubcriptionCheck(User.Identity.Name);
+    if (userSubscriptionCheck && (!User.IsInRole("admin")))
+    {
+        subscriptionController.CancelSubcription(User.Identity.Name);
+    }
+    Response.Redirect("../index.cshtml");
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Отписка от рассылки</title>
+</head>
+<body>
+</body>
+</html>

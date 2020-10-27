@@ -1,0 +1,212 @@
+﻿.pageBody {
+    margin-top: 10px;
+}
+
+.contactLogo {
+    background-image: url(../Views/images/background.jpg);
+    padding: 50px 20px 50px 170px;
+    text-align: center;
+}
+
+p {
+    font-style: italic;
+}
+
+.contactLogo h1 {
+    font-family: 'Open Sans', sans-serif;
+    position: relative;
+    color: #587493;
+    font-size: 2.5em;
+    font-weight: normal;
+    display: inline-block;
+    margin: 0;
+    line-height: 1;
+    padding: 8px 20px 8px 2px;
+    border-top: 4px solid;
+}
+
+.contactLogo h1:before {
+   content: "Animal rescuer";
+   position: absolute;
+   top: -2px;
+   left: -160px;
+   font-size: 27px;
+   transform: rotate(-35deg);
+   font-family: 'Marck Script', cursive;
+}
+
+.contactLogo h1:after {
+    content: "";
+    position: absolute;
+    width: 120%;
+    height: 4px;
+    right: 0;
+    bottom: -4px;
+    background: #587493;
+}
+
+@media (max-width: 580px) {
+    .contactLogo {
+    padding-left: 130px;
+}
+
+.contactLogoh1 {
+    font-size: 2em;
+}
+
+.contactLogoh1:before {
+     left: -130px;
+  }
+}
+
+@media (max-width: 480px) {
+    .contactLogo {
+     padding-left: 100px;
+}
+
+.contactLogo h1 {
+font-size: 1.5em;
+padding-right: 10px;
+}
+
+ .contactLogo h1:before {
+   left: -100px;
+ }
+}
+
+@media (max-width: 380px) {
+    .contactLogo {
+    padding-left: 90px;
+   }
+
+.contactLogo h1 {
+     font-size: 1.3em;
+}
+
+.contactLogo h1:before {
+      left: -88px;
+   }
+}
+
+.iconBlock {
+    text-align: center;
+    padding: 12px;
+}
+
+.iconBlock .imageBlock {
+    transition: all 2s ease;
+    position: relative;
+    height: 80px;
+    width: 90px;
+    border-radius: 50%;
+    border: 3px solid #9ec7e8;
+    margin: 0 auto;
+    font-size: 63px;
+    color: #226196;
+    padding: 18px;
+    box-sizing: content-box;
+}
+
+.iconBlock:hover .imageBlock {
+     border: 3px solid #185d98;
+}
+
+.iconBlock .imageBlock i, .iconBlock .imageBlock img {
+     position: relative;
+     z-index: 3;
+     height: 80px;
+     width: 80px;
+     cursor: pointer;
+}
+
+.iconBlock .imageBlock:before {
+     content: "";
+     height: 57px;
+     width: 135px;
+     position: absolute;
+     top: 23px;
+     left: -5px;
+     background-color: #FFF;
+     transition: all 0.3s ease;
+     z-index: 3;
+}
+
+.iconBlock:hover .imageBlock:before {
+     transform: rotate(90deg);
+}
+
+.iconBlock h3 {
+     transition: all 0.3s ease 0s;
+     color: #348fdc;
+     font-size: 17px;
+     margin: 5px 0;
+}
+
+.iconBlock:hover h3 {
+     color: #1c2f40;
+     transform: translateY(-5px);
+}
+
+.UserName {
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    background: #BCE8EA;
+    font-style: normal;
+    cursor: pointer;
+    height: 20px;
+    margin-top: 20px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+}
+.submenu:hover > submenu-link {
+    display: block;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+    margin-top: 5px;
+    height: 50px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    background: cadetblue;
+    padding: 0px 15px;
+    font-family: arial;
+    line-height: 50px;
+    display: block;
+}
+
+    a:hover {
+        background: #0094ff;
+    }
+
+li {
+    float: left;
+    position: relative;
+}
+
+    li > ul {
+        position: absolute;
+        top: 43px;
+        display: none;
+    }
+
+    li:hover > ul {
+        display: block;
+        width: 250px;
+    }
+
+        li:hover > ul > li {
+            float: none;
+        }

@@ -1,0 +1,25 @@
+﻿#DonationsBody {
+    margin-left: 5%;
+}
+
+.donationInfo {
+    background: powderblue;
+    border-radius: 10px;
+}
+
+.donationInfo label {
+    color: black;
+    margin-left: 20px;
+    font-style: oblique;
+    font-size: 18px;
+}
+
+.donationInfo input {
+     color: black;
+     font-size: 14px;
+}
+
+.donationInfo input[type = "text"] {
+   height: 10px;
+}
+

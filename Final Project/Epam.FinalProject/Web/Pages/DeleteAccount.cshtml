@@ -1,0 +1,29 @@
+﻿@using Controllers;
+@using Resolver;
+
+@{
+    if (!User.Identity.IsAuthenticated || !User.IsInRole("admin"))
+    {
+        Response.Redirect("../index.cshtml");
+    }
+
+    var accountLogic = AccountResolver.AccountLogic;
+    AccountController accountController = new AccountController(accountLogic);
+    string UserName = Request.QueryString["accountMail"];
+    if (!accountController.GetAccountByEmail(UserName).Role.Equals("admin"))
+    {
+        accountController.DeleteAccountById(accountController.GetAccountByEmail(UserName).Id);
+        Response.Redirect("AllAccounts.cshtml"); 
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+</body>
+</html>

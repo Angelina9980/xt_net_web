@@ -1,0 +1,88 @@
+﻿@using Controllers;
+@using Resolver;
+@using Entities;
+
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        Response.Redirect("../index.cshtml");
+    }
+
+    var accountLogic = AccountResolver.AccountLogic;
+    AccountController accountController = new AccountController(accountLogic);
+    
+    if (IsPost)
+    {
+        var userName = Request.Params["userName"];
+        var userEmail = Request.Params["userEmail"];
+        var password = Request.Params["userPassword"];
+        var repPassword = Request.Params["repPassword"];
+        var userPhone = Request.Params["userPhone"];
+        var date = Request.Params["userDate"];
+
+        DateTime userDate = new DateTime();
+        DateTime dateTimeNow = DateTime.Today;
+        DateTime.TryParseExact(date, "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out userDate);
+
+        int age = dateTimeNow.Year - userDate.Year;
+        if (userDate > dateTimeNow.AddYears(-age))
+        {
+            age--;
+        }
+        var message = " ";
+        if (password.Equals(repPassword))
+        {
+            try
+            {
+                accountController.GetAccountByEmail(userEmail);
+            }
+            catch (Exception exeption)
+            {
+                message = exeption.Message;
+            }
+        }
+
+        if (message.Equals(" "))
+        {
+            accountController.Registration(new AccountEntity { Name = userName, Password = password, Role = "user", DateOfBirth = userDate.Date, Email = userEmail, Number = userPhone, Age = age });
+            FormsAuthentication.SetAuthCookie(userEmail, createPersistentCookie: true);
+        }
+        else
+        {
+            Response.Write("Профиль с данным Email уже сущесвует.");
+        }
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Регистрация нового пользователя</title>
+    <link rel="stylesheet" type="text/css" href="~/Styles/RegStyle.css" />
+</head>
+<body>
+    <form method="post">
+        <div class="reg-form">Регистрация</div>
+        <p>
+            <label>Имя пользователя<br><input required type="text" class="name-form" name="userName" value=""></label>
+            <label>E-mail<br><input required type="email" class="mail-form" name="userEmail" value=""></label>
+        </p>
+        <p>
+            <label>Номер телефона<br><input required type="number" class="number-form" name="userPhone" value=""></label>
+            <label>Дата рождения<br><input required type="date" class="date-form" name="userDate" value=""></label>
+        </p>
+        <p>
+            <label>Пароль<br><input required type="password" class="pass-form" name="userPassword" value=""></label>
+            <label>Еще раз<br><input required type="password" class="pass-form" name="repPassword"></label>
+        </p>
+        <div class="buttons">
+            <p>
+                <input type="submit" value="Зарегистрироваться" id="reg-btn" onclick="eror()" \>
+                <input type="button" value="Закрыть" id="user-close-button" onclick="window.location.href = '../index.cshtml'">
+            </p>
+        </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,139 @@
+﻿@using Controllers;
+@using Resolver;
+@using Entities;
+
+@{
+    var accountLogic = AccountResolver.AccountLogic;
+    AccountController accountController = new AccountController(accountLogic);
+    string UserName = Request.QueryString["accountMail"];
+    var accountInfo = accountController.GetAccountByEmail(UserName);
+
+    if (IsPost)
+    {
+        var name = Request.Params["name"];
+        var mail = Request.Params["mail"];
+
+        var date = Request.Params["userDate"];
+        DateTime userDate = new DateTime();
+
+        if (date.Equals(""))
+        {
+            userDate = accountInfo.DateOfBirth;
+        }
+        else
+        {
+            DateTime dateTimeNow = DateTime.Today;
+            DateTime.TryParseExact(date, "yyyy-mm-dd", null, System.Globalization.DateTimeStyles.None, out userDate);
+        }
+
+        var number = Request.Params["number"];
+        var password = Request.Params["password"];
+        var card = Request.Params["card"];
+
+        if (card.Equals(""))
+        {
+            card = " ";
+        }
+
+        var role = " ";
+
+        if (User.IsInRole("user"))
+        {
+            role = "user";
+        }
+        else
+        {
+            role = Request.Params["role"];
+        }
+
+        accountController.EditAccount(new AccountEntity
+        {
+            Name = name,
+            Email = mail,
+            DateOfBirth = userDate.Date,
+            Number = number,
+            Password = password,
+            CardInformation = card,
+            Balance = accountInfo.Balance,
+            Role = role
+        });
+
+        Response.Redirect("openAccount?accountMail=" + mail);
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Информация о профиле</title>
+    <link rel="stylesheet" type="text/css" href="~/Styles/AccountPageStyle.css" />
+</head>
+<body>
+    <div class="pageBody">
+        <form method="post" action="#">
+            <div id="AccountInfo">
+                <h1>Информация о профиле</h1>
+                <hr>
+                <p><label>Имя пользователя<input type="text" name="name" class="input-form" value="@accountInfo.Name" required></label></p>
+                <p><label>Почта<input type="text" name="mail" class="input-form" value="@accountInfo.Email" required></label></p>
+                <p><label>Номер телефона<input type="text" name="number" class="input-form" value="@accountInfo.Number" required></label></p>
+                @{if (User.IsInRole("admin"))
+                    {
+                        <p><label>Пароль<input type="password" name="password" class="input-form" value="@accountInfo.Password" disabled></label></p>
+                        <p><label>Номер карты<input type="text" name="card" class="input-form" value="@accountInfo.CardInformation" disabled></label></p>
+                    }
+                    else
+                    {
+                        <p><label>Пароль<input type="password" name="password" class="input-form" value="@accountInfo.Password" required></label></p>
+                        <p><label>Номер карты<input type="text" name="card" class="input-form" value="@accountInfo.CardInformation"></label></p>
+                    }
+                }
+
+                <p><label>Дата рождения<input type="text" class="input-form" value="@accountInfo.DateOfBirth.Date.ToShortDateString()" disabled></label></p>
+                <p><label>Установить новую дату<br><input type="date" class="date-form" name="userDate" value=""></label></p>
+                <p><label>Возраст<input type="text" name="age" value="@accountInfo.Age" class="input-form" disabled></label></p>
+                @{if (User.IsInRole("user"))
+                    {
+                        <p><label>Баланс<input type="text" name="balance" class="input-form" value="@accountInfo.Balance" disabled></label></p>
+                    }
+                }
+                @{
+                    if (User.IsInRole("admin"))
+                    {
+                        if (!accountInfo.Role.Equals("admin"))
+                        {
+                            <p><label>Роль<input type="text" name="role" class="input-form" value="@accountInfo.Role" required></label></p>
+                        }
+                        else
+                        {
+                            <p><label>Роль<input type="text" name="role" class="input-form" value="@accountInfo.Role" readonly></label></p>
+                        }
+                    }
+                }
+                <div class="buttons">
+                    <p><input type="submit" value="Сохранить изменения" id="save"></p>
+                    <p><input type="button" value="Домой" id="user-close-button" onclick="window.location.href = '../index.cshtml'"></p>
+                </div>
+                @{if (User.IsInRole("user"))
+                    {
+                        <p>
+                            <input type="button" value="Пополнить баланс" id="user-balance-button"
+                                   onclick=" window.location.href = '/Pages/topUpAccountBalance?accountMail=' + '@accountInfo.Email'">
+                        </p>
+                    }
+                }
+                @{if (User.IsInRole("admin"))
+                    {
+                        <p>
+                            <input type="button" value="Удалить пользователя" id="user-delete-button"
+                                   onclick=" window.location.href = '/Pages/DeleteAccount?accountMail=' + '@accountInfo.Email'">
+                        </p>
+                    }
+                }
+            </div>
+        </form>
+    </div>
+</body>
+</html>

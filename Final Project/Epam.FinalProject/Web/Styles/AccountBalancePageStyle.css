@@ -1,0 +1,61 @@
+﻿body {
+    background-image: url(https://st2.depositphotos.com/1106005/8644/i/950/depositphotos_86445800-stock-photo-teal-and-white-doggy-tile.jpg);
+}
+
+form {
+    width: 350px;
+    margin: auto;
+    color: white;
+    background: #7db0c4;
+    border: 2px solid #0075b2;
+    text-align: left;
+    font-family: sans-serif;
+    padding: 25px 0 20px 0;
+}
+
+form p {
+  padding-top: 22px;
+  padding-left: 25px;
+  margin: 0;
+}
+
+.buttons {
+    display: inline-flex;
+    margin-left: -15px;
+}
+
+label {
+    display: inline-block;
+    margin: 0 16px 0 0;
+    font-size: 16px;
+}
+
+.input-form {
+    width: 100px;
+    height: 20px;
+    border-radius: 3px;
+}
+
+input[type="submit"] {
+    background: #ffdf7f;
+    color: #000;
+    border: none;
+    margin: 2px;
+    padding: 6px 8px;
+    cursor: pointer;
+    width: 150px;
+}
+
+input[type="submit"]:hover {
+    background: orange;
+}
+
+input[type="button"] {
+    color: #000;
+    background: lightblue;
+    border: none;
+    margin: 2px;
+    padding: 6px 8px;
+    cursor: pointer;
+    width: 150px;
+}

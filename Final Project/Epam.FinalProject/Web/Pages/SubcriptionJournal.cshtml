@@ -1,0 +1,35 @@
+﻿@using Controllers;
+@using Resolver;
+
+@{
+    if (!User.Identity.IsAuthenticated && !User.IsInRole("admin"))
+    {
+        Response.Redirect("Login.cshtml");
+    }
+
+    Layout = "~/Pages/_Layout.cshtml";
+
+    var subsccriptionLogic = SubscriptionResolver.SubcriptionLogic;
+    SubscriptionController subscriptionController = new SubscriptionController(subsccriptionLogic);
+    var subscriptions = subscriptionController.SubscriptionList();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="~/Styles/SubscriptionJournalStyle.css" />
+</head>
+<body>
+    <div id="SubscriptionBody">
+        @foreach (var accountEmail in subscriptions)
+        {
+            <div class="subscriptionInfo">
+                <p><label>Почта пользователя <input type="text" name="mail" class="input-form" value="@accountEmail" disabled></label></p>
+            </div>
+        }
+    </div>
+</body>
+</html>

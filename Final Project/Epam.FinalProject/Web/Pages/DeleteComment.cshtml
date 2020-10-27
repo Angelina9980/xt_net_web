@@ -1,0 +1,32 @@
+﻿@using Controllers;
+@using Resolver;
+
+@{    
+    if (!User.Identity.IsAuthenticated)
+    {
+        Response.Redirect("Login.cshtml");
+    }
+
+    var commentLogic = CommentResolver.CommentLogic;
+    CommentController commentController = new CommentController(commentLogic);
+
+    var accountLogic = AccountResolver.AccountLogic;
+    AccountController accountController = new AccountController(accountLogic);
+
+    var commentId = Request.QueryString["commentId"];
+    var animalId = Request.Params["animalId"];
+
+    commentController.DeleteComment(int.Parse(commentId));
+    Response.Redirect("HelpAnimal.cshtml");
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+</body>
+</html>

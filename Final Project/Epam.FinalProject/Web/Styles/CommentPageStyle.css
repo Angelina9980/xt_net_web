@@ -1,0 +1,26 @@
+﻿.commentBody {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 4px dashed #4789e2;
+    width: 500px;
+    margin-bottom: 10px;
+    flex-direction: column;
+}
+    .commentBody input[type="text"], textarea {
+        max-height: 75px;
+        max-width: 460px;
+        width: 250px;
+    }
+
+    #commentsBody h1{
+        font-size: 15px;
+    }
+
+#contactBody {
+    display: flex;
+    justify-content: center;
+    align-content:center;
+    align-items: center;
+    flex-direction:column;
+}

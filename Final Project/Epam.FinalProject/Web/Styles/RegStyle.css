@@ -1,0 +1,76 @@
+﻿body {
+    background-image: url(https://st2.depositphotos.com/1106005/8644/i/950/depositphotos_86445800-stock-photo-teal-and-white-doggy-tile.jpg);
+}
+form {
+    width: 400px;
+    height: 290px;
+    margin: auto;
+    color: white;
+    background: #7db0c4;
+    border: 2px solid #0075b2;
+    text-align: left;
+    font-family: sans-serif;
+    padding: 25px 0 20px 0;
+}
+
+.reg-form {
+    padding: 0 0 10px 25px;
+    font-size: 25px;
+    font-weight: normal;
+    border-bottom: 1px solid #fff;
+}
+
+form p {
+    padding-top: 22px;
+    padding-left: 25px;
+    margin: 0;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+#user-close-button {
+    margin-left: 20px;
+    width: 155px;
+    background: aliceblue;
+}
+
+label {
+    display: inline-block;
+    margin: 0 16px 0 0;
+    font-size: 16px;
+}
+
+.mail-form, .name-form, .date-form, .pass-form, .number-form {
+    width: 150px;
+    height: 20px;
+}
+
+input[type="submit"] {
+    background: #ffdf7f;
+    color: #000;
+    border: none;
+    margin: 2px;
+    padding: 6px 8px;
+    cursor: pointer;
+    width: 150px;
+}
+
+input[type="date"] {
+    padding: 1px 2px;
+}
+
+input[type="submit"]:hover {
+    background: orange;
+}
+
+input[type="button"] {
+    color: #000;
+    border: none;
+    margin: 2px;
+    padding: 6px 8px;
+    cursor: pointer;
+    width: 150px;
+}

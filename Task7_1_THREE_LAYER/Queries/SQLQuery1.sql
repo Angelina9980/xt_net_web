@@ -30,4 +30,6 @@ CREATE TABLE dbo.Account (
 	Password NVARCHAR(MAX) NOT NULL
 );
 
-insert into Account(Name, Role, Password) values('admin@gmail.com', 'admin', 'admin1234')
+insert into Account(Mail, Role, Password) values('admin@gmail.com', 'admin', 'admin1234')
+delete from account where id_account = 1
+select * from account

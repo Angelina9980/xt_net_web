@@ -1,0 +1,88 @@
+﻿@using Controllers;
+@using Resolver;
+
+@{
+    var userEmail = " ";
+
+    var subsccriptionLogic = SubscriptionResolver.SubcriptionLogic;
+    SubscriptionController subscriptionController = new SubscriptionController(subsccriptionLogic);
+
+    var userSubscriptionCheck = subscriptionController.SubcriptionCheck(User.Identity.Name);
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="~/Styles/menuStyle.css" />
+    <title>Animal Rescuer</title>
+</head>
+<body>
+    <header>
+        <div id="pageLogo">
+            <h1>Animal Rescuer</h1>
+            <ul class="menu">
+                <li><a href="../index.cshtml">Главная</a></li>
+                <li>
+                    <a href="" class="submenu-link">Услуги</a>
+                    <ul class="submenu">
+                        <li><a href="~/Pages/HelpAnimal.cshtml">Помочь животному</a></li>
+                    </ul>
+                </li>
+                @{
+                    if (User.IsInRole("admin"))
+                    {
+                        <li><a href="~/Pages/SubcriptionJournal.cshtml">Список подписавшихся аккаунтов</a></li>
+                    }
+                    else if (!userSubscriptionCheck)
+                    {
+                        <li><a href="~/Pages/GetSubscription.cshtml">Подписаться на рассылку новостей</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="~/Pages/CancelSubscription.cshtml">Отписаться от рассылки новостей</a></li>
+                    }
+                }
+                <li><a href="~/Pages/Contacts.cshtml">Контакты</a></li>
+            </ul>
+        </div>
+    </header>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <input type="button" id="logOut-btn" value="LogOut" onclick="location.href = '/Pages/LogOut.cshtml'" />
+    }
+    else
+    {
+        <input type="button" id="log-btn" value="Login" onclick="location.href = '/Pages/Login.cshtml'" />
+    }
+    @if (User.Identity.IsAuthenticated)
+    {
+        userEmail = User.Identity.Name;
+        if (User.IsInRole("admin"))
+        {
+            <p class="UserName">Приветствуем, администратор!</p>
+            <div class="buttons">
+                <p><input type="button" value="Просмотр пользователей" id="allUsersBtn" onclick="window.location.href = '/Pages/AllAccounts.cshtml'"></p>
+                <p><input type="button" value="Просмотр животных" id="allAnimalsBtn" onclick="window.location.href='/Pages/HelpAnimal.cshtml'"></p>
+                <p><input type="button" value="Добавить животное" onclick="location.href = '/Pages/AddAnimal.cshtml'"></p>
+                <p><input type="button" value="Журнал операций" onclick="location.href = '/Pages/DonationJournal.cshtml'"></p>
+            </div>
+        }
+        else
+        {
+            <p class="UserName">Перейти в профиль: @userEmail</p>
+        }
+    }
+
+    @RenderBody()
+</body>
+</html>
+<script>
+    let userName = document.getElementsByClassName('UserName')[0];
+    userName.onclick = function () {
+        if ('@User.IsInRole("admin")' != 'false') {
+            location.href = '/Pages/openAccount?accountMail=' + '@userEmail';
+        }
+    }
+</script>

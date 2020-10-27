@@ -1,0 +1,151 @@
+﻿
+#contactform{
+    margin-top: 20px;
+    background: white;
+    width: 310px;
+    height: 480px;
+    border-radius: 10px;
+    border:5px dashed #7db0c4;
+}
+
+.cover {
+    padding-top: 3%;
+    width: 310px;
+    height: 530px;
+    margin: auto;
+    display: none;
+    margin-top: 10px;
+    z-index: 1;
+    margin-left: 40%;
+    position: fixed;
+    top: 10%;
+}
+
+h2.contact {
+    padding-left: 10px;
+    font-size: 15px;
+    color: darkslateblue;
+    font-family: sans-serif;
+    font-style: italic;
+}
+
+p.contact {
+    font-size: 15px;
+    margin-bottom: 15px;
+    line-height: 10px;
+    font-family: sans-serif, Arial;
+}
+
+#contact {
+    margin-top: 10px;
+}
+
+#contact input, textarea {
+    color: black;
+}
+
+input[type="text"] {
+     width: 230px;
+}
+
+textarea {
+    width: 230px;
+    height: 50px;
+}
+
+label {
+    color: black;
+    margin-left: 20px;
+}
+
+input, textarea {
+    border: 2px solid #7db0c4;
+    padding: 10px;
+    font-family: Keffeesatz, Arial;
+    font-size: 14px;
+    margin-bottom: 15px;
+    margin-top: -10px;
+    margin-left: 20px;
+}
+
+#contactform textarea {
+    resize: none;
+}
+
+
+    input:focus, textarea:focus {
+        border: 5px solid #7db0c4;
+        outline: none;
+    }
+
+    input[type="submit"] {
+        border: none;
+        cursor: pointer;
+        color: white;
+        font-size: 20px;
+        background-color: #7db0c4;
+        padding: 5px 18px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+        border-top: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+input[type="submit"]:hover {
+   color: #fff;
+   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+   background-color: #CCC;
+   background: -webkit-gradient(linear, left bottom, left top, color-stop(0.23, darkslateblue), color-stop(0.62, darkorchid));
+}
+
+#close-button {
+    cursor: pointer;
+    padding: 7px;
+    height: 36px;
+    line-height: 15px;
+    width: 100px;
+    border-radius: 10px;
+    background: mediumslateblue;
+}
+#close-button:hover {
+  background: darkorchid;
+}
+input[type="submit"]:active {
+  top: 1px;
+}
+hr {
+    background:#7db0c4;
+}
+
+.buttons {
+    left: 26%;
+    position: relative;
+    display: inline-flex;
+}
+
+.buttons input {
+        border: 2px solid #7db0c4;
+        padding: 10px;
+        font-family: Keffeesatz, Arial;
+        color: black;
+        font-size: 14px;
+        margin-bottom: 15px;
+        margin-top: -10px;
+        margin-left: 20px;
+    }
+
+#log-btn {
+    position: relative;
+    top: 13%;
+    left: 90%;
+    width: 80px;
+    background: darkcyan;
+}
+
+#logOut-btn {
+    position: relative;
+    top: 13%;
+    left: 90%;
+    width: 80px;
+    background: darkcyan;
+}

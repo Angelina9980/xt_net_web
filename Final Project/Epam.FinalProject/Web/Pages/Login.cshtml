@@ -1,0 +1,57 @@
+﻿@using Controllers;
+@using Resolver;
+
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        Response.Redirect("../index.cshtml");
+    }
+
+    var accountLogic = AccountResolver.AccountLogic;
+    AccountController accountController = new AccountController(accountLogic);
+
+    if (IsPost)
+    {
+        var userName = Request.Params["userEmail"];
+        var password = Request.Params["userPassword"];
+        var repPassword = Request["repPassword"];
+
+        if (accountController.GetRole(userName) != null) {
+            if ( (password.Equals(repPassword)) && (accountController.GetAccountByEmail(userName).Password.Equals(password)))
+            {
+                FormsAuthentication.SetAuthCookie(userName, createPersistentCookie: true);
+                Response.Redirect("../index.cshtml");
+            }
+        }
+        else
+        {
+            Response.Write("Профиля с введенными данными не существует или пароли введены неверно.");
+        }
+    }
+}
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Вход/Регистрация</title>
+        <link rel="stylesheet" type="text/css" href="~/Styles/LoginStyle.css" />
+    </head>
+    <body>
+        <div>
+            <form method="post">
+                <div class="reg-form">Вход / Регистрация</div>
+                <p><label>E-mail<br><input required type="email" class="mail-form" name="userEmail" value=""></label></p>
+                <p>
+                    <label>Пароль<br><input required type="password" class="pass-form" name="userPassword" value=""></label>
+                    <label>Еще раз<br><input required type="password" class="pass-form" name="repPassword"></label>
+                </p>
+                <p>
+                    <input type="submit" value="Войти">
+                    <input type="button" value="Зарегистрироваться" id="reg-btn" onclick="window.location.href = '/Pages/registration.cshtml'">
+                </p>
+            </form>
+        </div>
+    </body>
+</html>
+

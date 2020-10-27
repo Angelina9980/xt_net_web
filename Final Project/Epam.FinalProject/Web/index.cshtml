@@ -1,0 +1,28 @@
+﻿
+@{
+    Layout = "~/Pages/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    <div id="FeedBackButton">
+        <button type="button" image src="Web/Picturies/menu.PNG" />
+    </div>
+    <div class="pageBody">
+        <div class="TextBox">
+            <h1>Animal rescuer - это фонд помощи животным.</h1>
+            <p>
+                Каждый из Вас может внести свой вклад в развитие фонда.
+                Мы будем очень благодарны за Вашу поддержку.
+            </p>
+        </div>
+    </div>
+    @RenderPage("~/Views/FeedBack.cshtml")
+    <script src="~/Scripts/FeedBackAction.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+﻿@using Controllers;
+@using Resolver;
+
+@{
+
+    if (!User.Identity.IsAuthenticated || !User.IsInRole("admin"))
+    {
+        Response.Redirect("Login.cshtml");
+    }
+
+    Layout = "~/Pages/_Layout.cshtml";
+
+    var animalLogic = AnimalResolver.AnimalLogic;
+    AnimalController animalController = new AnimalController(animalLogic);
+    var animals = animalController.GetAllAnimals();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div id="DonationsBody">
+        @foreach (var animalInfo in animals)
+        {
+            foreach (var UserAndDonation in animalController.GetAnimalDonations(animalInfo.Id))
+            {
+                <div class="donationInfo">
+                    <p>
+                        <label>Имя животного<input type="text" name="name" class="input-form" value="@animalInfo.Name" disabled></label>
+                        <label>Id пользователя<input type="text" name="name" class="input-form" value="@UserAndDonation.Key" disabled></label>
+                        <label>Сумма пожертвования<input type="text" name="name" class="input-form" value="@UserAndDonation.Value" disabled></label>
+                    </p>
+                </div>
+            }
+        }
+    </div>
+</body>
+</html>

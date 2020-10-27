@@ -1,0 +1,49 @@
+﻿@using Controllers;
+@using Resolver;
+
+@{
+    string UserName = Request.QueryString["accountMail"];
+    var accountLogic = AccountResolver.AccountLogic;
+    AccountController accountController = new AccountController(accountLogic);
+    var accountInfo = accountController.GetAccountByEmail(UserName);
+
+    if (IsPost)
+    {
+        if (!accountInfo.CardInformation.Equals(" "))
+        {
+            var newBalance = 0;
+            int.TryParse(Request.Params["newBalance"], out newBalance);
+            accountController.EditBalance(UserName, newBalance, false);
+            Response.Redirect("openAccount?accountMail=" + UserName);
+        }
+        else
+        {
+            Response.Write("Добавьте карту для пополнения счета");
+        }
+
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Пополнить баланс</title>
+    <link rel="stylesheet" type="text/css" href="~/Styles/AccountBalancePageStyle.css" />
+</head>
+<body>
+    <div class="pageBody">
+        <form method="post" action="#">
+            <div class="balanceBody">
+                <p><label>Текущий баланс <input type="text" class="input-form" name="balance" value="@accountInfo.Balance" disabled /></label></p>
+                <p><label>Пополнить на сумму<input type="text" class="input-form" name="newBalance" value="" required /></label></p>
+                <div class="buttons">
+                    <p><input type="submit" value="Оплата по карте" id="CardPay"></p>
+                    <p><input type="button" value="Домой" id="user-close-button" onclick="window.location.href = '../index.cshtml'"></p>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+﻿@using Controllers;
+@using Resolver;
+
+@{
+    Layout = "~/Pages/_Layout.cshtml";
+
+    var animalLogic = AnimalResolver.AnimalLogic;
+    AnimalController animalController = new AnimalController(animalLogic);
+    var animals = animalController.GetAllAnimals();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="~/Styles/AllAnimalsStyle.css" />
+</head>
+<body>
+    <div id="animalsBody">
+        @foreach (var animalInfo in animals)
+        {
+            <div class="AnimalsInfo">
+                <div class="animalImage">
+                    <img src="@animalInfo.ImageUrl" />
+                    <div class="animalButtons">
+                        <p><input type="button" value="Пожертвовать" class="donateButton" onclick="location.href = '/Pages/DonationPage?animalId= + @animalInfo.Id'"></p>
+                        <p><input type="button" value="Перейти к обсуждению" onclick="location.href = '/Pages/CommentPage?animalId= + @animalInfo.Id'"></p>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                        {
+                            <p><input type="button" class="EditAnimal" value="Редактировать" onclick="location.href = '/Pages/openAnimal?animalId= + @animalInfo.Id'"></p>
+                        }
+                    </div>
+                </div>
+                <div class="animalPlace">
+                    <p><h1>Имя животного</h1><input type="text" name="name" class="input-form" value="@animalInfo.Name" disabled></p>
+                    <p><h1>Информация</h1><textarea name="info" class="input-form" disabled>@animalInfo.Text</textarea></p>
+                    <p><h1>Сумма собранных средств</h1><input type="number" name="donation" class="input-form" value="@animalInfo.Donation" disabled></p>
+                </div>
+            </div>
+        }
+    </div>
+</body>
+</html>

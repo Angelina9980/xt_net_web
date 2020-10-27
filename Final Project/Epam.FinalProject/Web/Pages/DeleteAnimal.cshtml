@@ -1,0 +1,27 @@
+﻿@using Controllers;
+@using Resolver;
+
+@{
+    if (!User.Identity.IsAuthenticated || !User.IsInRole("admin"))
+    {
+        Response.Redirect("Login.cshtml");
+    }
+
+    var animalLogic = AnimalResolver.AnimalLogic;
+    AnimalController animalController = new AnimalController(animalLogic);
+    var animalId = Request.QueryString["animalId"];
+
+    animalController.DeleteAnimalById(int.Parse(animalId));
+    Response.Redirect("HelpAnimal.cshtml");
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+</body>
+</html>

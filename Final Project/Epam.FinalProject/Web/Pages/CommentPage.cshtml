@@ -1,0 +1,61 @@
+﻿@using Controllers;
+@using Resolver;
+
+@{
+
+    Layout = "~/Pages/_Layout.cshtml";
+
+    var animalLogic = AnimalResolver.AnimalLogic;
+    AnimalController animalController = new AnimalController(animalLogic);
+    var commentLogic = CommentResolver.CommentLogic;
+    CommentController commentController = new CommentController(commentLogic);
+    var accountLogic = AccountResolver.AccountLogic;
+    AccountController accountController = new AccountController(accountLogic);
+
+    var animalId = Request.QueryString["animalId"];
+    var animalComments = commentController.GetAllCommentsById(int.Parse(animalId));
+
+    if (IsPost)
+    {
+        var userMail = Request.Params["name"];
+        var commentText = Request.Params["text"];
+        commentController.AddComment(User.Identity.Name, commentText, int.Parse(animalId));
+        Response.Redirect("CommentPage?animalId=" + animalId);
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="~/Styles/CommentPageStyle.css" />
+    <title></title>
+</head>
+<body>
+    <div id="contactBody">
+        <div class="commentBody">
+            <form method="post" action="#">
+                <p><h1>Ваше имя</h1><input type="text" name="name" class="input-form" value="@accountController.GetAccountByEmail(User.Identity.Name).Name" disabled></p>
+                <p><h1>Ваш комментарий </h1><textarea name="text" class="input-form" required></textarea></p>
+                <p><input type="submit" value="Отправить" class="donateButton" /></p>
+            </form>
+        </div>
+        <div id="commentsBody">
+            @foreach (var animalComment in animalComments)
+            {
+                <div class="commentBody">
+                    <p><h1>Имя пользователя </h1><input type="text" name="name" class="input-form" value="@accountController.GetAccountByEmail(animalComment.UserMail).Name" disabled></p>
+                    <p><h1>Текст комментария </h1><textarea name="text" class="input-form" disabled>@animalComment.Text</textarea></p>
+                    <div class="commentButton">
+                        @if (User.Identity.IsAuthenticated && (User.IsInRole("admin") || User.Identity.Name.Equals(animalComment.UserMail)))
+                        {
+                            <p><input type="button" value="Удалить" class="deleteButton" onclick="location.href = '/Pages/DeleteComment?commentId= +@animalComment.Id & animalId = +@animalId'"></p>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

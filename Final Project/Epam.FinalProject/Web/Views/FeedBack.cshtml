@@ -1,0 +1,61 @@
+﻿@using Controllers;
+@using Entities;
+@using Resolver;
+
+@{
+    var accountLogic = AccountResolver.AccountLogic;
+    AccountController accountController = new AccountController(accountLogic);
+
+    var feedBackMessageLogic = FeedBackMessageResolver.FeedBackMailLogic;
+    FeedBackMessageController feedBackMessageController = new FeedBackMessageController(feedBackMessageLogic);
+
+    if (IsPost)
+    {
+        var name = Request.Params["name"];
+        var mail = Request.Params["email"];
+        var subject = Request.Params["subject"];
+        var text = Request.Params["comment"];
+
+        feedBackMessageController.SendEmail(new FeedBackMessage
+        {
+            Name = name,
+            UserMail = mail,
+            MailText = text,
+            Subject = subject,
+        });
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="~/Styles/FeedBackStyle.css" />
+</head>
+<body>
+    @{if (User.Identity.IsAuthenticated)
+        {
+            <div class="cover">
+                <form id="contactform" action="#" method="post">
+                    <h2 class="contact">Ваш питомец нуждается в помощи? Напишите нам!</h2>
+                    <hr>
+                    <p class="contact"><label for="name">Имя</label></p>
+                    <input id="name" name="name" placeholder="Ваше имя" value="@accountController.GetAccountByEmail(User.Identity.Name).Name" readonly type="text">
+
+                    <p class="contact"><label for="email">Email</label></p>
+                    <input id="email" name="email" placeholder="example@mail.ru" value="@User.Identity.Name" readonly type="text">
+
+                    <p class="contact"><label for="Subject">Тема</label></p>
+                    <input id="subject" name="subject" placeholder="Тема сообщения" value="" required type="text">
+
+                    <p class="contact"><label for="comment">Сообщение</label></p>
+                    <textarea name="comment" id="comment"></textarea> <br>
+                    <input name="submit" id="submit" value="Отправить" type="submit">
+                    <input name="button" id="close-button" value="Закрыть" type="button">
+                </form>
+            </div>
+        }
+    }
+</body>
+</html>

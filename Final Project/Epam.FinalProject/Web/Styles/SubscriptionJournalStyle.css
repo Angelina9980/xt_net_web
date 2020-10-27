@@ -1,0 +1,19 @@
+﻿body{
+    background-size: 60%;
+}
+
+#SubscriptionBody {
+    display: flex;
+    justify-content:center;
+    align-content:center;
+    align-items:center;
+    flex-direction: column;
+}
+
+.subscriptionInfo label{
+    font-size: 18px;
+    font-style: oblique;
+}
+body{
+    background-size: 70%;
+}

@@ -1,0 +1,72 @@
+﻿@using Controllers;
+@using Resolver;
+@using Entities;
+
+@{
+
+    if (!User.Identity.IsAuthenticated && !User.IsInRole("admin"))
+    {
+        Response.Redirect("Login.cshtml");
+    }
+
+    Layout = "~/Pages/_Layout.cshtml";
+
+    var animalLogic = AnimalResolver.AnimalLogic;
+    AnimalController animalController = new AnimalController(animalLogic);
+    var animalId = Request.QueryString["animalId"];
+    var animalEntity = animalController.GetAnimalById(int.Parse(animalId));
+
+    if (IsPost)
+    {
+        var name = Request.Params["name"]; 
+        var info = Request.Params["info"];
+        var url = Request.Params["imageUrl"];
+
+        var donation = 0;
+        int.TryParse(Request.Params["donation"], out donation);
+
+        animalController.EditAnimal(new AnimalEntity
+        {
+            Id = int.Parse(animalId),
+            Name = name,
+            ImageUrl = url,
+            Text = info,
+            Donation = donation
+        });
+        
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="~/Styles/AllAnimalsStyle.css" />
+</head>
+<body>
+    <div id="animalsBody">
+        <div class="AnimalInfo">
+            <div class="animalImage">
+                <img src="@animalEntity.ImageUrl" />
+            </div>
+            <div class="animalPlace">
+                <form method="post" action="#">
+                    <p><h1>Имя животного</h1><input type="text" name="name" class="input-form" value="@animalEntity.Name" required></p>
+                    <p><h1>Информация</h1><textarea name="info" class="input-form" required>@animalEntity.Text</textarea></p>
+                    <p><h1>Сумма собранных средств</h1><input type="text" name="donation" class="input-form" value="@animalEntity.Donation" readonly></p>
+                    <p><h1>Url изображения животного</h1><input type="text" name="imageUrl" class="input-form" value="@animalEntity.ImageUrl" required></p>
+                    <div class="animalButtons">
+                        <p><input type="submit" value="Сохранить изменения" class="openAnimaldonateButton"></p>
+                        <p>
+                            <input type="button" value="Домой" onclick="window.location.href = '../index.cshtml'">
+                            <input type="button" value="Удалить" onclick="window.location.href = '/Pages/DeleteAnimal?animalId= + @animalEntity.Id'">
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

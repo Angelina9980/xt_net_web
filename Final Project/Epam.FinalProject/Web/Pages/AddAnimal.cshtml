@@ -1,0 +1,51 @@
+﻿@using Controllers;
+@using Resolver;
+@using Entities;
+
+@{
+    if (!User.Identity.IsAuthenticated || !User.IsInRole("admin"))
+    {
+        Response.Redirect("../index.cshtml");
+    }
+
+    Layout = "~/Pages/_Layout.cshtml";
+
+    var animalLogic = AnimalResolver.AnimalLogic;
+    AnimalController animalController = new AnimalController(animalLogic);
+
+    if (IsPost)
+    {
+        var name = Request.Params["name"];
+        var info = Request.Params["info"];
+        var url = Request.Params["imageUrl"];
+
+        animalController.AddAnimal(new AnimalEntity
+        {
+            Name = name,
+            Text = info,
+            ImageUrl = url,
+            Donation = 0
+        });
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Добавить животное</title>
+    <link rel="stylesheet" type="text/css" href="~/Styles/AddAnimalStyle.css" />
+</head>
+<body>
+    <div id="AnimalInfo">
+        <form method="post" action="#">
+            <p><label>Имя животного<input type="text" name="name" class="input-form" value="" required></label></p>
+            <p><label>Url изображения животного<input type="text" name="imageUrl" class="input-form" value="" required></label></p>
+            <p><label>Информация<textarea name="info" class="input-form" required></textarea></label></p>
+            <input type="submit" value="Добавить" id="submit">
+            <input type="button" value="Домой" onclick="window.location.href = '../index.cshtml'">
+        </form>
+    </div>
+</body>
+</html>

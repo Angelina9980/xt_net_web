@@ -1,0 +1,92 @@
+﻿body {
+    background-image: url("../Views/images/background.jpg");
+    background-size: 70%;
+}
+
+#animalsBody {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.AnimalsInfo {
+    display: flex;
+    justify-content: center;
+    border: 4px dashed #4789e2;
+    width: 700px;
+    height: 560px;
+    margin-bottom: 10px;
+}
+
+.AnimalInfo {
+    display: flex;
+    justify-content: center;
+    border: 4px dashed #4789e2;
+    width: 700px;
+    height: 670px;
+    margin-bottom: 10px;
+}
+.animalImage {
+    display: inline-grid;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    margin-left: 20px;
+    align-items: center;
+}
+
+.animalPlace {
+    text-align: center;
+    width: 400px;
+    height: 400px;
+}
+
+textarea {
+    max-height: 70px;
+    max-width: 340px;
+}
+
+.input-form {
+color: #000000;
+font-size: 15px;
+}
+
+.AnimalInfo h1 {
+    font-size: 15px;
+}
+
+.AnimalInfo input[type="text"], textarea {
+    width: 250px;
+}
+
+.AnimalsInfo input[type="text"], textarea {
+    width: 250px;
+}
+
+img {
+    width: 250px;
+    height: 150px;
+}
+
+ p {
+    padding-top: 22px;
+    padding-left: 25px;
+    margin: 0;
+}
+
+ .AnimalsInfo h1{
+     font-size:25px;
+ }
+
+.animalButtons {
+    left: 20px;
+}
+
+.animalButtons input[type="button"] {
+    color: darkcyan;
+}
+
+.openAnimaldonateButton p {
+    padding-left: 0;
+}

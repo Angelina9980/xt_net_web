@@ -1,0 +1,163 @@
+﻿body {
+    background-image: url(../Views/images/background.jpg);
+}
+.UserName {
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    background: #BCE8EA;
+    font-style: normal;
+    cursor: pointer;
+    height: 20px;
+    margin-top: 20px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+.menu {
+    display: flex;
+    justify-content: center;
+}
+#pageLogo {
+    text-align: center;
+}
+h1 {
+    font-style: italic;
+    color: lightslategray;
+    text-align: center;
+}
+.submenu:hover > submenu-link {
+    display: block;
+}
+ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+    margin-top: 5px;
+    height: 50px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    background: cadetblue;
+    padding: 0px 15px;
+    font-family: arial;
+    line-height: 50px;
+    display: block;
+}
+
+a:hover {
+background: #0094ff;
+}
+
+li {
+float: left;
+position: relative;
+}
+
+li > ul {
+position: absolute;
+top: 43px;
+display: none;
+}
+
+li:hover > ul {
+display: block;
+width: 250px;
+}
+
+li:hover > ul > li {
+float: none;
+}
+
+
+#FeedBackButton {
+position: fixed;
+right: 10%;
+bottom: 80px;
+}
+
+#FeedBackButton button {
+   margin-top: 112px;
+   width: 54px;
+   height: 54px;
+   background: url(../Views/images/mail.png);
+   border-radius: 5px;
+   cursor: pointer;
+   box-shadow: 3px 4px 5px 3px rgba(0, 0, 0, 0.4);
+    }
+
+#FeedBackButton button:hover {
+box-shadow: 3px 4px 5px 3px #0094ff;
+}
+
+#log-btn {
+    position: relative;
+    top: 13%;
+    left: 90%;
+    width: 80px;
+    background: darkcyan;
+}
+
+#logOut-btn {
+    position: relative;
+    top: 13%;
+    left: 90%;
+    width: 80px;
+    background: darkcyan;
+}
+
+.TextBox {
+    margin-top: 1%;
+    background: linear-gradient(90deg, #EFEFE7 50%, #BCE8EA 50%);
+    position: relative;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.TextBox:before,
+.TextBox:after {
+    content: "";
+    position: absolute;
+    width: 50%;
+    height: 10px;
+    background: linear-gradient(90deg, #BCE8EA 50%, #EFEFE7 50%);
+    left: 25%;
+}
+
+.TextBox:before {
+    top: 15px;
+}
+
+.TextBox:after {
+    bottom: 15px;
+}
+.TextBox p {
+   background: white;
+   margin: 0;
+   padding: 50px 0;
+   text-align: center;
+   font-family: 'Open Sans', sans-serif;
+   font-style: italic;
+   color: #7A7B82;
+   line-height: 1.5;
+}
+
+.buttons {
+    left: 21%;
+    position: relative;
+    display: inline-flex;
+    cursor: pointer;
+}
+
+input, textarea {
+        border: 2px solid #7db0c4;
+        padding: 10px;
+        font-family: Keffeesatz, Arial;
+        color: black;
+        font-size: 14px;
+        margin-bottom: 15px;
+        margin-top: -10px;
+        margin-left: 20px;
+}

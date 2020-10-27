@@ -1,0 +1,95 @@
+﻿@{
+    var userEmail = " ";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="~/Styles/ContactStyle.css" />
+    <title>Animal Rescuer - Контакты</title>
+</head>
+<body>
+    <header>
+        <div class="contactLogo">
+            <h1>Контакты</h1>
+        </div>
+        <ul class="menu">
+            <li><a href="../index.cshtml">Главная</a></li>
+            <li>
+                <a href="" class="submenu-link">Услуги</a>
+                <ul class="submenu">
+                    <li><a href="~/Pages/HelpAnimal.cshtml">Помочь животному</a></li>
+                </ul>
+            </li>
+            <li><a id="mailing">Подписаться на рассылку новостей</a></li>
+            <li><a href="~/Pages/Contacts.cshtml">Контакты</a></li>
+        </ul>
+    </header>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <input type="button" id="logOut-btn" value="LogOut" onclick="location.href = '/Pages/LogOut.cshtml'" />
+    }
+    else
+    {
+        <input type="button" id="log-btn" value="Login" onclick="location.href = '/Pages/Login.cshtml'" />
+    }
+    @if (User.Identity.IsAuthenticated)
+    {
+        userEmail = User.Identity.Name;
+        if (User.IsInRole("admin"))
+        {
+            <p class="UserName">Приветствуем, администратор!</p>
+            <div class="buttons">
+                <p><input type="button" value="Просмотр пользователей" id="allUsersBtn" onclick="window.location.href = '/Pages/AllAccounts.cshtml'"></p>
+                <p><input type="button" value="Просмотр животных" id="allAnimalsBtn" onclick="window.location.href='/Pages/HelpAnimal.cshtml'"></p>
+                <p><input type="button" value="Добавить животное" onclick="location.href = '/Pages/AddAnimal.cshtml'"></p>
+                <p><input type="button" value="Журнал операций" onclick="location.href = '/Pages/DonationJournal.cshtml'"></p>
+            </div>
+        }
+        else
+        {
+            <p class="UserName">Перейти в профиль: @userEmail</p>
+        }
+    }
+
+    <div class="pageBody">
+        <div class="iconBlock">
+            <div class="imageBlock">
+                <img src="https://static.tildacdn.com/tild3735-3237-4561-a530-356434613936/noroot.png" />
+            </div>
+            <h3>Позвоните нам</h3>
+            <p>880012345789</p>
+        </div>
+        <div class="iconBlock">
+            <div class="imageBlock">
+                <img src="https://pic.90sjimg.com/design/01/33/14/98/59101116c0a17.png" />
+            </div>
+            <h3>Приезжайте к нам офис</h3>
+            <p>г. Саратов ул. Московская д. 1</p>
+        </div>
+        <div class="iconBlock">
+            <div id="FeedBackButton">
+                <div class="imageBlock">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQh4NJiA0A3BpyyepG2dY1i8sLiP3jTWWYAfA&usqp=CAU" />
+                </div>
+                <h3>Напишите нам на почту</h3>
+                <p>Нажмите на иконку для отправки сообщения</p>
+            </div>
+        </div>
+    </div>
+    @RenderPage("~/Views/FeedBack.cshtml")
+    <script src="~/Scripts/FeedBackAction.js"></script>
+</body>
+</html>
+<script>
+    let userName = document.getElementsByClassName('UserName')[0];
+
+    userName.onclick = function () {
+        if ('@User.IsInRole("admin")' != 'false') {
+            location.href = '/Pages/openAccount?accountMail=' + '@userEmail';
+        }
+    }
+
+</script>
