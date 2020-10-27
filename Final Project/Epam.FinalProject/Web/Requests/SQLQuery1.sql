@@ -1,5 +1,5 @@
 ﻿Use AnimalRescuerBase
-select * from account
+
 CREATE TABLE dbo.Account (
 	ID_Account INT IDENTITY(1,1) NOT NULL CONSTRAINT PK_Account PRIMARY KEY,
 	Name NVARCHAR(MAX) NOT NULL,
