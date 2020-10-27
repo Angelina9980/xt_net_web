@@ -26,12 +26,16 @@
         var accountDonation = 0;
         var getDonation = int.TryParse(Request.Params["accountDonation"],out accountDonation);
 
-            if (accountMoney >= accountDonation)
-            {
-                animalController.GetDonation(accountInfo.Id, animalId, accountDonation);
-                accountController.EditBalance(accountInfo.Email, accountDonation, true);
-                Response.Redirect("HelpAnimal.cshtml");
-            }
+        if (accountMoney >= accountDonation)
+        {
+            animalController.GetDonation(accountInfo.Id, animalId, accountDonation);
+            accountController.EditBalance(accountInfo.Email, accountDonation, true);
+            Response.Redirect("HelpAnimal.cshtml");
+        }
+        else
+        {
+            Response.Redirect("topUpAccountBalance?accountMail=" + User.Identity.Name);
+        }
     }
 }
 

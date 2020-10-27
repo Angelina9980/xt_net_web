@@ -10,7 +10,7 @@
 
     var accountLogic = AccountResolver.AccountLogic;
     AccountController accountController = new AccountController(accountLogic);
-    
+
     if (IsPost)
     {
         var userName = Request.Params["userName"];
@@ -29,28 +29,24 @@
         {
             age--;
         }
-        var message = " ";
-        if (password.Equals(repPassword))
-        {
-            try
-            {
-                accountController.GetAccountByEmail(userEmail);
-            }
-            catch (Exception exeption)
-            {
-                message = exeption.Message;
-            }
-        }
 
-        if (message.Equals(" "))
+        if (accountController.GetRole(userEmail) == null)
         {
-            accountController.Registration(new AccountEntity { Name = userName, Password = password, Role = "user", DateOfBirth = userDate.Date, Email = userEmail, Number = userPhone, Age = age });
-            FormsAuthentication.SetAuthCookie(userEmail, createPersistentCookie: true);
+            if (password.Equals(repPassword))
+            {
+                accountController.Registration(new AccountEntity { Name = userName, Password = password, Role = "user", DateOfBirth = userDate.Date, Email = userEmail, Number = userPhone, Age = age });
+                FormsAuthentication.SetAuthCookie(userEmail, createPersistentCookie: true);
+            }
+            else
+            {
+                Response.Write("Введенные пароли не совпадают.");
+            }
         }
         else
         {
-            Response.Write("Профиль с данным Email уже сущесвует.");
+            Response.Write("Аккаунт с данным Email уже существует");
         }
+
     }
 }
 
